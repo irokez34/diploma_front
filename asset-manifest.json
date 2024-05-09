@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/diploma_front/static/css/main.7acaea2f.css",
+    "main.js": "/diploma_front/static/js/main.07d3183d.js",
+    "index.html": "/diploma_front/index.html",
+    "main.7acaea2f.css.map": "/diploma_front/static/css/main.7acaea2f.css.map",
+    "main.07d3183d.js.map": "/diploma_front/static/js/main.07d3183d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.07d3183d.js"
+  ]
+}
