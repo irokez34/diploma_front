@@ -1,38 +1,38 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
+import TaskWindow from 'components/TaskWindow/TaskWindow';
 import {
   CreateTaskButton,
   TaskContainer,
+  TaskListContainer,
   TaskListItem,
   TaskListUl,
 } from './TaskList.styled';
-import TaskWindow from 'components/TaskWindow/TaskWindow';
+import { useState } from 'react';
+
+// import { ModalContext } from 'context';
 
 const TaskList = ({ tasks }) => {
-  const { openModal } = useContext(ModalContext);
-  const taskWindow = id => {
-    openModal(
-      <>
-        <TaskWindow id={id} />
-      </>
-    );
+  const [taskStatus, setTaskStatus] = useState(false);
+  const [task, setTask] = useState(null);
+  // const { openModal } = useContext(ModalContext);
+
+  const taskWindowHandle = projectTask => {
+    setTaskStatus(true);
+    setTask(projectTask);
   };
-  const taskElements = tasks.map(task => (
-    <a
-      href="https://www.youtube.com/watch?v=Bv_4o73RNfQ"
-      // потом поменяю на таску когда будет
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <TaskListItem key={task.id}>{task.title}</TaskListItem>
-    </a>
+  const taskElements = tasks.map(taskMap => (
+    <TaskListItem key={taskMap.id}>
+      <button onClick={() => taskWindowHandle(taskMap)}>{taskMap.title}</button>
+    </TaskListItem>
   ));
-  {
-    /* <button onClick={TaskWindow(task.id)}><TaskListItem key={task.id}>{task.title}</TaskListItem></button> */
-  }
+
   return (
     <TaskContainer>
-      <CreateTaskButton>+ CREATE TASK</CreateTaskButton>
-      <TaskListUl>{taskElements}</TaskListUl>
+      <TaskListContainer>
+        <CreateTaskButton>+ CREATE TASK</CreateTaskButton>
+        <TaskListUl>{taskElements}</TaskListUl>
+      </TaskListContainer>
+      {taskStatus && <TaskWindow task={task}></TaskWindow>}
     </TaskContainer>
   );
 };
