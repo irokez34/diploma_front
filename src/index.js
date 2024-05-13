@@ -5,10 +5,14 @@ import './styles/fonts.css';
 import './styles/reset.css';
 import { GlobalStyle } from './styles/globalStyle.js';
 import { App } from './components/App.jsx';
+import { Provider } from 'react-redux';
+import { store } from './redux/store.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
