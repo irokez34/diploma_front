@@ -10,6 +10,7 @@ const initialState = {
 };
 const handlePending = state => {
   state.isLoading = true;
+  console.log('pending');
 };
 const attachSlice = createSlice({
   name: 'attach',
@@ -19,6 +20,7 @@ const attachSlice = createSlice({
       .addCase(API.sendAttach.pending, handlePending)
       .addCase(API.sendAttach.fulfilled, (state, { payload }) => {
         state.response = payload;
+        console.log('fulfilled');
       })
       .addCase(API.sendAttach.rejected, (state, action) => {
         console.log(state, action);

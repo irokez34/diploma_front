@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 const TaskContainer = styled.div`
-  
   margin: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 50px;
 `;
 
 const CreateTaskButton = styled.button`
@@ -16,7 +15,6 @@ const CreateTaskButton = styled.button`
   font-size: 25px;
   line-height: 30px;
   color: #000000;
- 
 `;
 
 const TaskListUl = styled.ul`
@@ -44,4 +42,10 @@ const TaskListContainer = styled.div`
   flex-direction: column;
   width: 360px;
 `;
-export { TaskListContainer,TaskContainer, CreateTaskButton, TaskListUl, TaskListItem };
+export {
+  TaskListContainer,
+  TaskContainer,
+  CreateTaskButton,
+  TaskListUl,
+  TaskListItem,
+};

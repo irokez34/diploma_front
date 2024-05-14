@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const TaskContainerProject = styled.div`
-  width: 1000px;
+  min-width: 1000px;
   padding: 20px;
   background-color: #d9d9d9;
   display: flex;

@@ -27,6 +27,8 @@ import {
 import moment from 'moment-timezone';
 import { useDispatch } from 'react-redux';
 import { sendAttach } from '../../redux/Attach/operations';
+import { loginUser } from '../../redux/User/operations.js';
+import { registerUser } from '../../redux/User/operations.js';
 
 const TaskWindow = ({ task }) => {
   const [fileChoose, setFileChoose] = useState(null);
@@ -41,15 +43,21 @@ const TaskWindow = ({ task }) => {
     const file = e.target.files[0];
     setFileChoose(file);
   };
-
-  const handleSubmit = () => {
-    console.log('work');
-    if (fileChoose !== null) {
-      dispatch(sendAttach(fileChoose));
-    } else {
-      console.log(comment);
-    }
-  };
+  // const handleRegister = () => {
+  //   dispatch(
+  //     registerUser({ name: 'leha', password: '66', username: '6leha6' })
+  //   );
+  // };
+  // const handleLogin = () => {
+  //   dispatch(loginUser({ username: '6leha6', password: '66' }));
+  // };
+  // const handleSubmit = () => {
+  //   if (fileChoose !== null) {
+  //     dispatch(sendAttach(fileChoose));
+  //   } else {
+  //     console.log(comment);
+  //   }
+  // };
   const converTime = date => {
     if (!date) {
       return 'No Time';
@@ -81,7 +89,8 @@ const TaskWindow = ({ task }) => {
             ></TaskActivityInput>
           </TaskChat>
         </TaskActivity>
-        <TaskSubmitBtn onSubmit={handleSubmit()}>{'Submit'}</TaskSubmitBtn>
+        <TaskSubmitBtn>{'Submit'}</TaskSubmitBtn>
+        {/* onClick={handleSubmit} */}
       </TaskDescriptionContainer>
       <TaskDetailsContainer>
         <TaskDropDown>
