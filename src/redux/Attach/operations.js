@@ -9,9 +9,9 @@ export const sendAttach = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const token = localStorage.getItem('token');
-      const project_id = userData.project_id
+      const project_id = userData.project_id;
       const response = await axios.post(
-        `/api/attachments${project_id}`,
+        `/api/attachments/${project_id}`,
         userData,
         {
           headers: {
@@ -31,6 +31,40 @@ export const sendAttach = createAsyncThunk(
         error.toString();
       alert(message);
       return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAttach = createAsyncThunk(
+  'attachments',
+  async (attachm_id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/api/attachments/${attachm_id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteAttach = createAsyncThunk(
+  'attachments',
+  async (attachm_id, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`/api/attachments/${attachm_id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
     }
   }
 );
