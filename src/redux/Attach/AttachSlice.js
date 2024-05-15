@@ -23,7 +23,7 @@ const attachSlice = createSlice({
         console.log('fulfilled');
       })
       .addCase(API.sendAttach.rejected, (state, action) => {
-        console.log(state, action);
+        console.log(state);
       });
   },
 });

@@ -63,3 +63,6 @@ export const updateOneTask = createAsyncThunk(
     }
   }
 );
+
+
+export const deleteOneTask = createAsyncThunk('')

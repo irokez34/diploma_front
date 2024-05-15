@@ -8,8 +8,20 @@ export const sendAttach = createAsyncThunk(
   'attachments',
   async (userData, thunkApi) => {
     try {
-      const response = await axios.post('/api/attachments', userData);
-      return response.data;
+      const token = localStorage.getItem('token');
+      const project_id = userData.project_id
+      const response = await axios.post(
+        `/api/attachments${project_id}`,
+        userData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `${token}`,
+          },
+        }
+      );
+      console.log(response);
+      return response;
     } catch (error) {
       const message =
         (error.response &&

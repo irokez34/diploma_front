@@ -43,21 +43,25 @@ const TaskWindow = ({ task }) => {
     const file = e.target.files[0];
     setFileChoose(file);
   };
-  // const handleRegister = () => {
-  //   dispatch(
-  //     registerUser({ name: 'leha', password: '66', username: '6leha6' })
-  //   );
-  // };
-  // const handleLogin = () => {
-  //   dispatch(loginUser({ username: '6leha6', password: '66' }));
-  // };
-  // const handleSubmit = () => {
-  //   if (fileChoose !== null) {
-  //     dispatch(sendAttach(fileChoose));
-  //   } else {
-  //     console.log(comment);
-  //   }
-  // };
+  const handleRegister = () => {
+    dispatch(
+      registerUser({ name: 'leha', password: '66', username: '6leha6' })
+    );
+  };
+  const handleLogin = () => {
+    dispatch(loginUser({ username: 'Leha Trembita', password: '123' }));
+  };
+  const handleSubmit = () => {
+    if (fileChoose !== null) {
+      const formdata = new FormData();
+      console.log(new FormData());
+      formdata.append('user/attach', fileChoose);
+      console.log(formdata);
+      // dispatch(sendAttach(formdata));
+    } else {
+      console.log(comment);
+    }
+  };
   const converTime = date => {
     if (!date) {
       return 'No Time';
@@ -89,8 +93,9 @@ const TaskWindow = ({ task }) => {
             ></TaskActivityInput>
           </TaskChat>
         </TaskActivity>
-        <TaskSubmitBtn>{'Submit'}</TaskSubmitBtn>
-        {/* onClick={handleSubmit} */}
+        <TaskSubmitBtn onClick={handleSubmit}>{'Submit'}</TaskSubmitBtn>
+        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleRegister}>Register</button>
       </TaskDescriptionContainer>
       <TaskDetailsContainer>
         <TaskDropDown>
