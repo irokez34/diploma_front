@@ -16,13 +16,13 @@ const handleRegister = (state, { payload }) => {
 };
 const handleLogin = (state, { payload }) => {
   state.token = payload.token;
-  state.profile = payload.user;
+  state.profile = payload;
   state.isLoggedIn = true;
 };
 const UserSlice = createSlice({
   name: 'user',
   initialState,
-  
+
   extraReducers: builder => {
     builder
       .addCase(registerUser.fulfilled, handleRegister)

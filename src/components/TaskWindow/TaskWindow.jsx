@@ -45,7 +45,11 @@ const TaskWindow = ({ task }) => {
   };
   const handleRegister = () => {
     dispatch(
-      registerUser({ name: 'leha', password: '66', username: '6leha6' })
+      registerUser({
+        name: 'Leha Trembita',
+        password: '123',
+        username: 'Leha Trembita',
+      })
     );
   };
   const handleLogin = () => {
@@ -54,9 +58,9 @@ const TaskWindow = ({ task }) => {
   const handleSubmit = () => {
     if (fileChoose !== null) {
       const formdata = new FormData();
-      console.log(new FormData());
       formdata.append('user/attach', fileChoose);
       console.log(formdata);
+      // const data = { formdata, ...task.id };
       // dispatch(sendAttach(formdata));
     } else {
       console.log(comment);

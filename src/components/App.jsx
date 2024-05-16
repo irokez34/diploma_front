@@ -1,9 +1,11 @@
+import { InviteCodePage } from 'pages/InviteCode';
 import { ProjectPage } from 'pages/ProjectPage';
 
 export const App = () => {
   return (
     <div>
-      <ProjectPage></ProjectPage>
+      <InviteCodePage></InviteCodePage>
+      {/* <ProjectPage></ProjectPage> */}
     </div>
   );
 };
