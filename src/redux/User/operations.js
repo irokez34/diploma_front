@@ -37,6 +37,7 @@ export const loginUser = createAsyncThunk(
       });
 
       console.log(data);
+      localStorage.setItem('token', `Bearer ${data.access_token}`);
       authHeader(data.access_token);
       return data;
     } catch (error) {

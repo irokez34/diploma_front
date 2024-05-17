@@ -3,6 +3,7 @@ import { loginUser, registerUser } from './operations.js';
 
 const initialState = {
   token: null,
+  userId: null,
   profile: null,
   isLoggedIn: false,
   isLoading: false,

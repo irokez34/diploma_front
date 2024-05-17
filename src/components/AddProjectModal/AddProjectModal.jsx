@@ -30,6 +30,7 @@ export const AddProjectModal = ({ onClose, createProject }) => {
 
   const handleChange = e => {
     const { name, value } = e.target;
+
     setData({
       ...data,
       [name]: value,
@@ -59,6 +60,7 @@ export const AddProjectModal = ({ onClose, createProject }) => {
                 placeholder="Project Name"
                 value={data.projectName}
                 onChange={handleChange}
+                required
               />
               <InputField
                 type="text"
@@ -66,10 +68,15 @@ export const AddProjectModal = ({ onClose, createProject }) => {
                 placeholder="Project Description"
                 value={data.projectDescription}
                 onChange={handleChange}
+                required
               />
               <ProjectBtnSave
                 onClick={e => {
                   e.preventDefault();
+                  if (!data.projectDescription || !data.projectName) {
+                    alert('fill all fields');
+                    return;
+                  }
                   createProject(data.projectName, data.projectDescription);
                 }}
               >

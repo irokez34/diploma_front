@@ -15,6 +15,7 @@ export const getAllTask = createAsyncThunk(
     }
   }
 );
+// add headers  Authorization: `${token}`,
 
 export const createNewTask = createAsyncThunk(
   'user/tasks',

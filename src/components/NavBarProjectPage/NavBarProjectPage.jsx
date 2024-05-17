@@ -7,13 +7,13 @@ import {
   WrapperDiv,
 } from './NavBarProjectPage.styled';
 
-const NavBar = () => {
+const NavBar = ({ project }) => {
   return (
     <NavContainer>
       <WrapperDiv>
         <NavButton> {'<'} </NavButton>
-        <NavP>Project Name</NavP> {/* Project Name */}
-        <NavButton>INFO</NavButton> {/* INFO */}
+        <NavP>{project && project.name}</NavP> {/* Project Name */}
+        <NavButton>{project && project.description}</NavButton> {/* INFO */}
         <NavP>{'Project Status'}</NavP> {/* Project Status */}
       </WrapperDiv>
       <NavP>{'COMPLETION CHANCE: 87% '}</NavP> {/* COMPLETION CHANCE: 87% */}{' '}
