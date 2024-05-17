@@ -85,8 +85,8 @@ export const InviteCodePage = () => {
   const projectListItem =
     allProjects &&
     allProjects.map(el => (
-      <Link to={`/diploma_front/project/${el._id}`}>
-        <ProjectListItem key={el._id}>
+      <Link to={`/diploma_front/project/${el._id}`} key={el._id}>
+        <ProjectListItem>
           <ProjectBtn>{el.name.toUpperCase()}</ProjectBtn>
         </ProjectListItem>
       </Link>

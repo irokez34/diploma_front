@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 // import { ModalContext } from 'context';
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, role, createTaskModal }) => {
   const [taskStatus, setTaskStatus] = useState(false);
   const [task, setTask] = useState(null);
   // const { openModal } = useContext(ModalContext);
@@ -29,8 +29,16 @@ const TaskList = ({ tasks }) => {
   return (
     <TaskContainer>
       <TaskListContainer>
-        <CreateTaskButton>+ CREATE TASK</CreateTaskButton>
-        <TaskListUl>{taskElements}</TaskListUl>
+        {role === 'owner' && (
+          <CreateTaskButton onClick={createTaskModal}>
+            + CREATE TASK
+          </CreateTaskButton>
+        )}
+        {tasks.length === 0 ? (
+          <h1 style={{ marginTop: '15px' }}>No Tasks</h1>
+        ) : (
+          <TaskListUl>{taskElements}</TaskListUl>
+        )}
       </TaskListContainer>
       {taskStatus && <TaskWindow task={task}></TaskWindow>}
     </TaskContainer>

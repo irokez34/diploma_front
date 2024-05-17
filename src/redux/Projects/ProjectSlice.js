@@ -22,7 +22,6 @@ const projectSlice = createSlice({
       })
       .addCase(API.createNewProject.pending, (state, action) => {})
       .addCase(API.createNewProject.fulfilled, (state, action) => {
-        console.log(action.payload.data);
         state.project = action.payload.data;
       })
       .addCase(API.createNewProject.rejected, (state, action) => {
@@ -30,7 +29,6 @@ const projectSlice = createSlice({
       })
       .addCase(API.getOneProject.pending, (state, action) => {})
       .addCase(API.getOneProject.fulfilled, (state, action) => {
-        console.log(action);
         state.project = action.payload;
       })
       .addCase(API.getOneProject.rejected, (state, action) => {

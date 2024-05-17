@@ -13,12 +13,9 @@ const TaskSlice = createSlice({
     builder
       .addCase(API.getAllTask.pending, (state, action) => {})
       .addCase(API.getAllTask.fulfilled, (state, action) => {
-        console.log(action);
         state.tasks = action.payload;
       })
-      .addCase(API.getAllTask.rejected, (state, action) => {
-        console.log(action);
-      });
+      .addCase(API.getAllTask.rejected, (state, action) => {});
   },
 });
 

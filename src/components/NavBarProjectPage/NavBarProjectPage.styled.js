@@ -8,6 +8,7 @@ const NavContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 `;
 const NavButton = styled.button`
   padding: 10px 15px;

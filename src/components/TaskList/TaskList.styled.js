@@ -15,6 +15,20 @@ const CreateTaskButton = styled.button`
   font-size: 25px;
   line-height: 30px;
   color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #bfbfbf;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: #a6a6a6;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+  }
 `;
 
 const TaskListUl = styled.ul`

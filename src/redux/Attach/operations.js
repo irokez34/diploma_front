@@ -20,7 +20,7 @@ export const sendAttach = createAsyncThunk(
           },
         }
       );
-      console.log(response);
+
       return response;
     } catch (error) {
       const message =
@@ -44,7 +44,7 @@ export const getAttach = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
+
       return response;
     } catch (error) {
       console.log(error);
@@ -61,7 +61,7 @@ export const deleteAttach = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
+
       return response;
     } catch (error) {
       console.log(error);
