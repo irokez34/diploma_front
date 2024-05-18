@@ -7,24 +7,37 @@ import {
   TaskListItem,
   TaskListUl,
 } from './TaskList.styled';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // import { ModalContext } from 'context';
 
-const TaskList = ({ tasks, role, createTaskModal }) => {
+const TaskList = ({ tasks, createTaskModal, projectId, sendAttach }) => {
   const [taskStatus, setTaskStatus] = useState(false);
   const [task, setTask] = useState(null);
+  const [role, setRole] = useState(null);
   // const { openModal } = useContext(ModalContext);
 
   const taskWindowHandle = projectTask => {
     setTaskStatus(true);
     setTask(projectTask);
   };
-  const taskElements = tasks.map(taskMap => (
-    <TaskListItem key={taskMap.id}>
-      <button onClick={() => taskWindowHandle(taskMap)}>{taskMap.title}</button>
-    </TaskListItem>
-  ));
+  const taskElements =
+    tasks &&
+    tasks.map(taskMap => (
+      <TaskListItem key={taskMap._id}>
+        <button
+          style={{ width: '100%' }}
+          onClick={() => taskWindowHandle(taskMap)}
+        >
+          {taskMap.name.toUpperCase()}
+        </button>
+      </TaskListItem>
+    ));
+
+  useEffect(() => {
+    const userRole = localStorage.getItem('UserRole');
+    setRole(userRole);
+  }, [role]);
 
   return (
     <TaskContainer>
@@ -34,13 +47,20 @@ const TaskList = ({ tasks, role, createTaskModal }) => {
             + CREATE TASK
           </CreateTaskButton>
         )}
-        {tasks.length === 0 ? (
+        {tasks && tasks.length === 0 ? (
           <h1 style={{ marginTop: '15px' }}>No Tasks</h1>
         ) : (
           <TaskListUl>{taskElements}</TaskListUl>
         )}
       </TaskListContainer>
-      {taskStatus && <TaskWindow task={task}></TaskWindow>}
+      {taskStatus && (
+        <TaskWindow
+          task={task}
+          projectIdId={projectId}
+          sendUserAttach={sendAttach}
+        ></TaskWindow>
+      )}
+      {/*//userAttach={sendAttach} */}
     </TaskContainer>
   );
 };

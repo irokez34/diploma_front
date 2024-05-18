@@ -18,13 +18,12 @@ const TaskDescriptionContainer = styled.div`
   gap: 15px;
 `;
 const TaskSpan = styled.span``;
-const TaskActivityHead = styled.h3``;
+
 const TaskInput = styled.input``;
 const TaskDescription = styled.p``;
 const TaskDescriptionSpan = styled.span``;
 const Container = styled.div``;
-const TaskActivity = styled.div``;
-const TaskChat = styled.div``;
+
 const TaskStatus = styled.input``;
 
 const TaskDropDown = styled.div``;
@@ -79,13 +78,10 @@ const TaskDetailsListContainer = styled.div`
   gap: 15px;
 `;
 
-const TaskActivityInput = styled.input``;
 const TaskSubmitBtn = styled.button``;
 
 export {
   TaskHead,
-  TaskActivityHead,
-  TaskActivityInput,
   TaskSubmitBtn,
   TaskDetailsP,
   TaskDetailsInput,
@@ -103,8 +99,6 @@ export {
   TaskContainerProject,
   TaskInput,
   TaskDescription,
-  TaskChat,
-  TaskActivity,
   TaskDescriptionContainer,
   Container,
 };

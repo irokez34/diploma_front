@@ -13,12 +13,14 @@ import {
   TaskDropDown,
 } from './TaskModal.styled';
 
-export const TaskModal = ({ onClose, createTask }) => {
+export const TaskModal = ({ onClose, createTask, projectId }) => {
   const [data, setData] = useState({
-    status: 'to_do',
-    name: '',
-    description: '',
     attachments: [],
+    description: '',
+    name: '',
+    priority: 1,
+    project_id: `${projectId}`,
+    tracking_time: null,
   });
   useEffect(() => {
     const handleKeyDown = e => {
@@ -34,6 +36,7 @@ export const TaskModal = ({ onClose, createTask }) => {
 
   const handleChange = e => {
     const { name, value } = e.target;
+    console.log(name, value);
     setData({
       ...data,
       [name]: value,
@@ -42,16 +45,13 @@ export const TaskModal = ({ onClose, createTask }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(data);
     if (!data.name || !data.description) {
       alert('fill required fields');
       return;
     }
-    createTask(data);
-  };
 
-  const handleChangeStatus = e => {
-    setData({ ...data, status: e.target.value });
+    createTask(data);
+    window.location.reload();
   };
 
   return (
@@ -77,7 +77,6 @@ export const TaskModal = ({ onClose, createTask }) => {
                 placeholder="Task Name"
                 value={data.name}
                 onChange={handleChange}
-                required
               />
               <InputField
                 type="text"
@@ -85,22 +84,15 @@ export const TaskModal = ({ onClose, createTask }) => {
                 placeholder="Task Description"
                 value={data.description}
                 onChange={handleChange}
-                required
               />
-              <TaskDropDown>
-                <SeletTask value={data.status} onChange={handleChangeStatus}>
-                  <OptionTask value="to_do">{'To Do'}</OptionTask>
-                  <OptionTask value="in_progress">{'In Progress'}</OptionTask>
-                  <OptionTask value="done">{'Done'}</OptionTask>
-                </SeletTask>
-              </TaskDropDown>
               <InputField
-                type="file"
-                name="attachments"
-                value={data.attachments}
+                type="number"
+                name="tracking_time"
+                placeholder="Task Original Estimate Time"
+                value={data.tracking_time}
                 onChange={handleChange}
-                required
               />
+
               <ProjectBtnSave onClick={handleSubmit}>{'SAVE'}</ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>

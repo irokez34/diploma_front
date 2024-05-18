@@ -3,22 +3,18 @@ import { loginUser, registerUser } from './operations.js';
 
 const initialState = {
   token: null,
-  userId: null,
-  profile: null,
-  isLoggedIn: false,
+  userAuth: false,
   isLoading: false,
   error: null,
 };
 
 const handleRegister = (state, { payload }) => {
   state.token = payload.token;
-  state.profile = payload.user;
-  state.isLoggedIn = true;
+  state.userAuth = true;
 };
 const handleLogin = (state, { payload }) => {
   state.token = payload.token;
-  state.profile = payload;
-  state.isLoggedIn = true;
+  state.userAuth = true;
 };
 const UserSlice = createSlice({
   name: 'user',

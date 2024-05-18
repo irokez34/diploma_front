@@ -5,23 +5,19 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 /////
 export const sendAttach = createAsyncThunk(
-  'attachments',
-  async (userData, thunkApi) => {
+  'attachments/send',
+  async ({ userData, project_id }, thunkApi) => {
     try {
       const token = localStorage.getItem('token');
-      const project_id = userData.project_id;
-      const response = await axios.post(
-        `/api/attachments/${project_id}`,
-        userData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `${token}`,
-          },
-        }
-      );
-
-      return response;
+      const response = await axios.post(`/api/attachments/`, userData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `${token}`,
+        },
+        params: { project_id },
+      });
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       const message =
         (error.response &&
@@ -30,7 +26,7 @@ export const sendAttach = createAsyncThunk(
         error.message ||
         error.toString();
       alert(message);
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(message);
     }
   }
 );

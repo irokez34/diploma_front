@@ -8,7 +8,6 @@ import {
 } from './NavBarProjectPage.styled';
 
 const NavBar = ({ project }) => {
-  console.log(project);
   return (
     <NavContainer>
       <WrapperDiv>

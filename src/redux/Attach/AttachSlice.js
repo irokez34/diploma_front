@@ -2,15 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import * as API from './operations.js';
 
 const initialState = {
-  user: {
-    file: null,
-  },
-  response: null,
-  isLoading: false,
+  attachments: [],
+  error: null,
 };
 const handlePending = state => {
   state.isLoading = true;
-  console.log('pending');
 };
 const attachSlice = createSlice({
   name: 'attach',
@@ -19,11 +15,10 @@ const attachSlice = createSlice({
     builder
       .addCase(API.sendAttach.pending, handlePending)
       .addCase(API.sendAttach.fulfilled, (state, { payload }) => {
-        state.response = payload;
-        console.log('fulfilled');
+        state.attachments.push(payload);
       })
       .addCase(API.sendAttach.rejected, (state, action) => {
-        console.log(state);
+        console.log(state, action);
       });
   },
 });

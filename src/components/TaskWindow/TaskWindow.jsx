@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import {
-  Container,
   OptionTask,
   SeletTask,
-  TaskActivity,
-  TaskActivityHead,
-  TaskActivityInput,
-  TaskChat,
   TaskContainerProject,
   TaskDescription,
   TaskDescriptionContainer,
@@ -21,51 +16,30 @@ import {
   TaskDropDown,
   TaskHead,
   TaskInput,
-  TaskStatus,
   TaskSubmitBtn,
 } from './TaskWindow.styled';
 import moment from 'moment-timezone';
-import { useDispatch } from 'react-redux';
-import { sendAttach } from '../../redux/Attach/operations';
-import { loginUser } from '../../redux/User/operations.js';
-import { registerUser } from '../../redux/User/operations.js';
+import { ActivityChat } from 'components/Activity/ActivityChat';
 
-const TaskWindow = ({ task }) => {
+const TaskWindow = ({ task, sendUserAttach }) => {
   const [fileChoose, setFileChoose] = useState(null);
-  const [selectOptions] = useState([
-    { value: 'to_do', label: 'To Do' },
-    { value: 'in_progress', label: 'In Progress' },
-    { value: 'done', label: 'Done' },
-  ]);
-  const [comment, setComment] = useState('');
-  const dispatch = useDispatch();
   const handleFileChange = e => {
-    const file = e.target.files[0];
+    const file = e.target.files;
     setFileChoose(file);
   };
-  const handleRegister = () => {
-    dispatch(
-      registerUser({
-        name: 'Leha Trembita',
-        password: '123',
-        username: 'Leha Trembita',
-      })
-    );
-  };
-  const handleLogin = () => {
-    dispatch(loginUser({ username: 'Leha Trembita', password: '123' }));
-  };
-  const handleSubmit = () => {
-    if (fileChoose !== null) {
-      const formdata = new FormData();
-      formdata.append('user/attach', fileChoose);
-      console.log(formdata);
-      // const data = { formdata, ...task.id };
-      // dispatch(sendAttach(formdata));
-    } else {
-      console.log(comment);
-    }
-  };
+  // const handleRegister = () => {
+  //   dispatch(
+  //     registerUser({
+  //       name: 'Leha Trembita',
+  //       password: '123',
+  //       username: 'Leha Trembita',
+  //     })
+  //   );
+  // };
+  // const handleLogin = () => {
+  //   dispatch(loginUser({ username: 'Leha Trembita', password: '123' }));
+  // };
+
   const converTime = date => {
     if (!date) {
       return 'No Time';
@@ -76,6 +50,12 @@ const TaskWindow = ({ task }) => {
       .format('DD.MM.YYYY HH:mm');
     return formattedTime;
   };
+  const handleSubmit = () => {
+    const formdata = new FormData();
+    formdata.append('file', fileChoose[0]);
+    sendUserAttach(formdata);
+    setFileChoose(null);
+  };
 
   return (
     <TaskContainerProject>
@@ -84,22 +64,10 @@ const TaskWindow = ({ task }) => {
         <TaskInput type="file" onChange={handleFileChange}></TaskInput>
         <TaskDescription>{'Description'}</TaskDescription>
         <TaskDescriptionSpan>{task.description}</TaskDescriptionSpan>
-        <TaskActivity>
-          <TaskActivityHead>{'Activity'}</TaskActivityHead>
-          <TaskChat>
-            <TaskActivityInput
-              type="text"
-              onChange={e => {
-                setComment(e.target.value);
-              }}
-              value={comment}
-              disabled={fileChoose !== null}
-            ></TaskActivityInput>
-          </TaskChat>
-        </TaskActivity>
+        <ActivityChat></ActivityChat>
         <TaskSubmitBtn onClick={handleSubmit}>{'Submit'}</TaskSubmitBtn>
-        <button onClick={handleLogin}>Login</button>
-        <button onClick={handleRegister}>Register</button>
+        {/* <button onClick={handleLogin}>Login</button>
+        <button onClick={handleRegister}>Register</button> */}
       </TaskDescriptionContainer>
       <TaskDetailsContainer>
         <TaskDropDown>
@@ -114,10 +82,12 @@ const TaskWindow = ({ task }) => {
           <TaskDetailsUl>
             <TaskDetailsLi>
               {'Original estimate'}
-              <TaskDetailsSpan>{'5h'}</TaskDetailsSpan>
+              {/* owner */}
+              <TaskDetailsSpan>{`${task.tracking_time}h`}</TaskDetailsSpan>
             </TaskDetailsLi>
             <TaskDetailsLi>
-              {'Time tracking'}
+              {'Logged Time'}
+              {/* worker */}
               <TaskDetailsInput
                 type="number"
                 placeholder="0"

@@ -15,7 +15,6 @@ export const getAllTask = createAsyncThunk(
         },
         params: { project_id },
       });
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
