@@ -67,7 +67,6 @@ const TaskDetailsInput = styled.input`
   width: 50px;
   font-size: 14px;
 `;
-const TaskDetailsLocker = styled.span;
 
 const TaskDetailsListContainer = styled.div`
   display: flex;

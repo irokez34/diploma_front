@@ -6,11 +6,8 @@ import {
   InfoContainer,
   InputField,
   Modal,
-  OptionTask,
   Overlay,
   ProjectBtnSave,
-  SeletTask,
-  TaskDropDown,
 } from './TaskModal.styled';
 
 export const TaskModal = ({ onClose, createTask, projectId }) => {

@@ -27,6 +27,7 @@ const TaskWindow = ({ task, sendUserAttach }) => {
     const file = e.target.files;
     setFileChoose(file);
   };
+
   // const handleRegister = () => {
   //   dispatch(
   //     registerUser({
@@ -56,7 +57,7 @@ const TaskWindow = ({ task, sendUserAttach }) => {
     sendUserAttach(formdata);
     setFileChoose(null);
   };
-
+  console.log(task._id);
   return (
     <TaskContainerProject>
       <TaskDescriptionContainer>

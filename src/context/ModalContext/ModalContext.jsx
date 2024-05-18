@@ -33,10 +33,7 @@ export const ModalProvider = ({ children }) => {
     <ModalContext.Provider value={valueModalProvider}>
       <ThemeProvider>
         <GlobalStyle $isVisibility={modalShowing ? 'hidden' : 'scroll'} />
-        {modalShowing && (
-          <ModalFooter {...modalContent} inOverflow={overflow} />
-        )}
-        {children}
+
       </ThemeProvider>
     </ModalContext.Provider>
   );

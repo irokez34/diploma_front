@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const TaskContainer = styled.div`
-  margin: 30px;
   display: flex;
   flex-direction: row;
   gap: 50px;

@@ -7,13 +7,14 @@ export const getComments = createAsyncThunk(
   'comments',
   async (task_id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/comments/${task_id}`, {
+      const response = await axios.get(`/api/comments/`, {
         headers: {
           'Content-Type': 'application/json',
         },
+        params: { task_id },
       });
       console.log(response);
-      return response;
+      return response.data;
     } catch (error) {
       console.log(error);
     }

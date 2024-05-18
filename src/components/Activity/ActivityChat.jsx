@@ -6,15 +6,21 @@ import {
   TaskChatList,
 } from './ActivityChat.styled';
 
-export const ActivityChat = ({comments, attachments}) => {
-// const 
+export const ActivityChat = ({ comments, attachments }) => {
+  // const
+  const comment =
+    comments &&
+    comments.map(com => (
+      <li>
+        <span>{com.data}</span>
+      </li>
+    ));
 
-  
   return (
     <TaskActivity>
       <TaskActivityHead>{'Activity'}</TaskActivityHead>
       <TaskChat>
-        <TaskChatList></TaskChatList>
+        <TaskChatList>{comment}</TaskChatList>
         <TaskActivityInput
           type="text"
           // onChange={e => {
