@@ -6,8 +6,9 @@ import {
   TaskChatList,
 } from './ActivityChat.styled';
 
-export const ActivityChat = ({ comments, attachments }) => {
+export const ActivityChat = ({ comments, attachments, submit }) => {
   // const
+
   const comment =
     comments &&
     comments.map(com => (

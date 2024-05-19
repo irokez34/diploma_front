@@ -35,7 +35,6 @@ const Container = styled.div`
   top: 30%;
   left: 42%;
   padding: 15px;
-  border: 1px solid black;
 `;
 const fadeIn = keyframes`
   from {
@@ -46,6 +45,12 @@ const fadeIn = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
+`;
+const SignOutBtn = styled.button`
+  position: absolute;
+  top: 3%;
+  right: 5%;
+  text-decoration: underline;
 `;
 
 const IntiveCodeContainer = styled.div`
@@ -172,6 +177,7 @@ export {
   ProjectsContainer,
   AddProjectBtn,
   ProjectsBtn,
+  SignOutBtn,
   Container,
   IntiveCodeContainer,
   CloseWindowBtn,

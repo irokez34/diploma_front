@@ -1,23 +1,19 @@
 import { useEffect, useState } from 'react';
 import {
+  Info,
+  Overlay,
+  Modal,
   ButtonClose,
   FormCreateProject,
-  Info,
+  ProjectBtnSave,
   InfoContainer,
   InputField,
-  Modal,
-  Overlay,
-  ProjectBtnSave,
-} from './TaskModal.styled';
+} from './AddProjectModal.styled.js';
 
-export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
+export const UpdateProjectModal = ({ onClose, updateProject }) => {
   const [data, setData] = useState({
-    attachments: [],
-    description: '',
-    name: '',
-    priority: 1,
-    project_id: `${projectId}`,
-    tracking_time: null,
+    projectName: '',
+    projectDescription: '',
   });
   useEffect(() => {
     const handleKeyDown = e => {
@@ -33,22 +29,11 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log(name, value);
+
     setData({
       ...data,
       [name]: value,
     });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!data.name || !data.description) {
-      alert('fill required fields');
-      return;
-    }
-
-    createTask(data);
-    window.location.reload();
   };
 
   return (
@@ -70,30 +55,35 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
             <FormCreateProject>
               <InputField
                 type="text"
-                name="name"
-                placeholder="Task Name"
-                value={data.name}
+                name="projectName"
+                placeholder="Project Name"
+                value={data.projectName}
                 onChange={handleChange}
-                disabled={userRole !== 'owner'}
+                required
               />
               <InputField
                 type="text"
-                name="description"
-                placeholder="Task Description"
-                value={data.description}
+                name="projectDescription"
+                placeholder="Project Description"
+                value={data.projectDescription}
                 onChange={handleChange}
-                disabled={userRole !== 'owner'}
+                required
               />
-              <InputField
-                type="number"
-                name="tracking_time"
-                placeholder="Task Original Estimate Time"
-                value={data.tracking_time}
-                onChange={handleChange}
-                disabled={userRole !== 'owner'}
-              />
-
-              <ProjectBtnSave onClick={handleSubmit}>{'SAVE'}</ProjectBtnSave>
+              <ProjectBtnSave
+                onClick={e => {
+                  e.preventDefault();
+                  if (!data.projectDescription || !data.projectName) {
+                    alert('fill all fields');
+                    return;
+                  }
+                  updateProject({
+                    name: data.projectName,
+                    description: data.projectDescription,
+                  });
+                }}
+              >
+                {'SAVE'}
+              </ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>
         </Info>

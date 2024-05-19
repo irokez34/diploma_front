@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000';
 export const authHeader = token => {
@@ -16,6 +17,8 @@ export const registerUser = createAsyncThunk(
         },
       });
       console.log(data);
+      const userId = jwtDecode(data.access_token);
+      localStorage.setItem('userID', `${userId.sub}`);
       localStorage.setItem('token', `Bearer ${data.access_token}`);
       authHeader(data.access_token);
       return data;
@@ -37,6 +40,8 @@ export const loginUser = createAsyncThunk(
       });
 
       console.log(data);
+      const userId = jwtDecode(data.access_token);
+      localStorage.setItem('userID', `${userId.sub}`);
       localStorage.setItem('token', `Bearer ${data.access_token}`);
       authHeader(data.access_token);
       return data;
@@ -46,4 +51,3 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
-

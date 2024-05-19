@@ -33,6 +33,14 @@ const projectSlice = createSlice({
       })
       .addCase(API.getOneProject.rejected, (state, action) => {
         console.log(action);
+      })
+      .addCase(API.updateProject.pending, (state, action) => {})
+      .addCase(API.updateProject.fulfilled, (state, action) => {
+        // state.project = action.payload;
+        console.log(action);
+      })
+      .addCase(API.updateProject.rejected, (state, action) => {
+        console.log(action);
       });
   },
 });

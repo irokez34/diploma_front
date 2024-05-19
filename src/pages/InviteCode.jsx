@@ -13,23 +13,23 @@ import {
   ProjectListItem,
   ProjectsBtn,
   ProjectsContainer,
+  SignOutBtn,
 } from './InviteCode.styled';
 import {
   createNewProject,
   getAllProjects,
 } from '../redux/Projects/operations.js';
 import { useDispatch, useSelector } from 'react-redux';
-// import { loginUser } from '../redux/User/operations.js';
+
 import { AddProjectModal } from '../components/AddProjectModal/AddProjectModal.jsx';
 import { selectProjects } from '../redux/Projects/selectors.js';
-import { Link } from 'react-router-dom';
-import { loginUser } from '../redux/User/operations';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const InviteCodePage = () => {
   const [projectWindow, setProjectWindow] = useState(false);
   const [inviteCodeWindow, setInviteCodeWindow] = useState(false);
   const [modal, setModal] = useState(false);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const allProjects = useSelector(selectProjects);
@@ -51,9 +51,6 @@ export const InviteCodePage = () => {
     } else {
       setInviteCodeWindow(true);
     }
-  };
-  const handleLogin = () => {
-    dispatch(loginUser({ username: 'Leha Trembita', password: '123' }));
   };
 
   const openProjectModal = e => {
@@ -92,11 +89,17 @@ export const InviteCodePage = () => {
       </Link>
     ));
 
+  const handleSignOut = () => {
+    localStorage.setItem('token', '');
+    localStorage.setItem('userID', '');
+    navigate('/diploma_front/auth/login');
+  };
+
   return (
     <>
-      <button onClick={handleLogin}>login</button>
+      <SignOutBtn onClick={handleSignOut}>Sign Out</SignOutBtn>
       <Container>
-        <HelloH2>{'Hello, username!'}</HelloH2>
+        <HelloH2>{'Welcome '}</HelloH2>
         <ChooseContainer>
           <ProjectsBtn onClick={OpenInviteCodeWindow}>
             {'ENTER CODE'}

@@ -21,30 +21,18 @@ import {
 import moment from 'moment-timezone';
 import { ActivityChat } from 'components/Activity/ActivityChat';
 
-const TaskWindow = ({ task, sendUserAttach }) => {
+const TaskWindow = ({ task, sendUserAttach, role }) => {
   const [fileChoose, setFileChoose] = useState(null);
   const handleFileChange = e => {
     const file = e.target.files;
     setFileChoose(file);
   };
 
-  // const handleRegister = () => {
-  //   dispatch(
-  //     registerUser({
-  //       name: 'Leha Trembita',
-  //       password: '123',
-  //       username: 'Leha Trembita',
-  //     })
-  //   );
-  // };
-  // const handleLogin = () => {
-  //   dispatch(loginUser({ username: 'Leha Trembita', password: '123' }));
-  // };
-
   const converTime = date => {
     if (!date) {
       return 'No Time';
     }
+
     const formattedTime = moment
       .unix(date)
       .tz('Europe/Kiev')
@@ -57,18 +45,21 @@ const TaskWindow = ({ task, sendUserAttach }) => {
     sendUserAttach(formdata);
     setFileChoose(null);
   };
-  console.log(task._id);
+
   return (
     <TaskContainerProject>
       <TaskDescriptionContainer>
-        <TaskHead>{task.title}</TaskHead>
-        <TaskInput type="file" onChange={handleFileChange}></TaskInput>
-        <TaskDescription>{'Description'}</TaskDescription>
-        <TaskDescriptionSpan>{task.description}</TaskDescriptionSpan>
-        <ActivityChat></ActivityChat>
-        <TaskSubmitBtn onClick={handleSubmit}>{'Submit'}</TaskSubmitBtn>
-        {/* <button onClick={handleLogin}>Login</button>
-        <button onClick={handleRegister}>Register</button> */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <TaskHead>{task && task.name.toUpperCase()}</TaskHead>
+          <TaskInput type="file" onChange={handleFileChange}></TaskInput>
+
+          <TaskDescription>{'Description'}</TaskDescription>
+          <TaskDescriptionSpan>{task && task.description}</TaskDescriptionSpan>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          <ActivityChat submit={handleSubmit} />
+          <TaskSubmitBtn onClick={handleSubmit}>{'Submit'}</TaskSubmitBtn>
+        </div>
       </TaskDescriptionContainer>
       <TaskDetailsContainer>
         <TaskDropDown>
@@ -84,7 +75,7 @@ const TaskWindow = ({ task, sendUserAttach }) => {
             <TaskDetailsLi>
               {'Original estimate'}
               {/* owner */}
-              <TaskDetailsSpan>{`${task.tracking_time}h`}</TaskDetailsSpan>
+              <TaskDetailsSpan>{`${task && task.tracking_time} h`}</TaskDetailsSpan>
             </TaskDetailsLi>
             <TaskDetailsLi>
               {'Logged Time'}
@@ -95,11 +86,13 @@ const TaskWindow = ({ task, sendUserAttach }) => {
                 min="0"
                 max="100"
                 id="number"
+                disabled={role !== 'worker'}
+                // {role === 'owner' || 'client'}
               ></TaskDetailsInput>
             </TaskDetailsLi>
             <TaskDetailsLi>
               {'Start time'}
-              <TaskDetailsSpan>{converTime(1715609410)}</TaskDetailsSpan>
+              <TaskDetailsSpan>{converTime(12313)}</TaskDetailsSpan>
             </TaskDetailsLi>
             <TaskDetailsLi>
               {'End time'}

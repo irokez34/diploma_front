@@ -25,7 +25,7 @@ export const getAllTask = createAsyncThunk(
 // add headers  Authorization: `${token}`,
 
 export const createNewTask = createAsyncThunk(
-  'user/tasks',
+  'task/create',
   async (newTask, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
@@ -44,7 +44,7 @@ export const createNewTask = createAsyncThunk(
 );
 
 export const getOneTask = createAsyncThunk(
-  'user/tasks',
+  'task/getOne',
   async (task_id, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
@@ -63,11 +63,11 @@ export const getOneTask = createAsyncThunk(
 );
 
 export const updateOneTask = createAsyncThunk(
-  'user/tasks',
-  async (task_id, { rejectWithValue }) => {
+  'task/update',
+  async ({ userData, task_id }, API) => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.put('/api/tasks/', task_id, {
+      const { data } = await axios.put(`/api/tasks/${task_id}`, userData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
@@ -77,7 +77,7 @@ export const updateOneTask = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error); //error.message
+      return error; //error.message
     }
   }
 );

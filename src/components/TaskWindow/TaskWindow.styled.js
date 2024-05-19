@@ -7,6 +7,7 @@ const TaskContainerProject = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  min-height: 400px;
 `;
 const TaskHead = styled.h2`
   font-size: 16px;
@@ -15,7 +16,8 @@ const TaskHead = styled.h2`
 const TaskDescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+ justify-content: space-between;
+  // gap: 30px;
 `;
 const TaskSpan = styled.span``;
 

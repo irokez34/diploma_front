@@ -62,3 +62,28 @@ export const getOneProject = createAsyncThunk(
     }
   }
 );
+
+export const updateProject = createAsyncThunk(
+  'project/update',
+  async ({ userData, project_id }, { rejectWithValue }) => {
+    try {
+      
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `/api/projects/${project_id}`,
+        userData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+        }
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error, rejectWithValue);
+      return error;
+    }
+  }
+);

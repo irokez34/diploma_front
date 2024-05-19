@@ -31,7 +31,6 @@ const UserSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload?.message;
       })
-
       .addCase(loginUser.fulfilled, handleLogin)
       .addCase(loginUser.pending, (state, { payload }) => {
         state.isLoading = true;
