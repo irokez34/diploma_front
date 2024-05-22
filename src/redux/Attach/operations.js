@@ -7,7 +7,9 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000';
 export const sendAttach = createAsyncThunk(
   'attachments/send',
   async ({ userData, project_id }, thunkApi) => {
+    console.log(userData);
     try {
+     
       const token = localStorage.getItem('token');
       const response = await axios.post(`/api/attachments/`, userData, {
         headers: {
@@ -19,6 +21,7 @@ export const sendAttach = createAsyncThunk(
       console.log(response.data);
       return response.data;
     } catch (error) {
+      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -32,16 +35,18 @@ export const sendAttach = createAsyncThunk(
 );
 
 export const getAttach = createAsyncThunk(
-  'attachments',
-  async (attachm_id, { rejectWithValue }) => {
+  'attachments/get',
+  async (attachment_id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/attachments/${attachm_id}`, {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`/api/attachments/${attachment_id}`, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `${token}`,
         },
       });
-
-      return response;
+      console.log(response);
+      return response.data;
     } catch (error) {
       console.log(error);
     }

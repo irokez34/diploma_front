@@ -9,11 +9,12 @@ const initialState = {
 };
 
 const handleRegister = (state, { payload }) => {
-  state.token = payload.token;
+  state.token = payload.access_token;
   state.userAuth = true;
 };
 const handleLogin = (state, { payload }) => {
-  state.token = payload.token;
+  console.log(payload.access_token);
+  state.token = payload.access_token;
   state.userAuth = true;
 };
 const UserSlice = createSlice({

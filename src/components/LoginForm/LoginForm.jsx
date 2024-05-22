@@ -36,6 +36,7 @@ export const LoginForm = ({ login }) => {
           name="username"
           value={formData.username}
           onChange={handleChange}
+          autoComplete='additional-name'
         />
       </LabelForm>
       <LabelForm>
@@ -48,6 +49,8 @@ export const LoginForm = ({ login }) => {
           autoComplete="new-password"
         />
       </LabelForm>
+
+      <BtnForm type="submit">Log In</BtnForm>
       <BtnForm
         onClick={() => {
           navigate('/diploma_front/auth/register');
@@ -55,8 +58,6 @@ export const LoginForm = ({ login }) => {
       >
         Sign Up
       </BtnForm>
-     
-      <BtnForm type="submit">Log In</BtnForm>
     </Form>
   );
 };

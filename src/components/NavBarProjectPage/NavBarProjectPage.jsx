@@ -1,6 +1,6 @@
 // import { NavContainer, NavButton, NavP } from './NavBarProjectPage.styled.js';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   NavButton,
   NavContainer,
@@ -11,9 +11,20 @@ import { UpdateProjectModal } from 'components/AddProjectModal/UpdateProjectModa
 import { useDispatch } from 'react-redux';
 import { updateProject } from '../../redux/Projects/operations';
 
-const NavBar = ({ project, role, task }) => {
+const NavBar = ({ project, inviteCode, code, type, history }) => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState();
+  const [workerCode, setWorkerCode] = useState('');
+  const [clientCode, setClientCode] = useState('');
+
+  useEffect(() => {
+    if (type === 'worker') {
+      setWorkerCode(code);
+    } else if (type === 'client') {
+      setClientCode(code);
+    }
+  }, [type, code]);
+
   const openInfoModal = () => {
     if (openModal) {
       setOpenModal(false);
@@ -29,6 +40,10 @@ const NavBar = ({ project, role, task }) => {
     window.location.reload();
   };
 
+  const handleInviteCode = e => {
+    inviteCode(e.target.value);
+  };
+
   return (
     <NavContainer>
       <WrapperDiv>
@@ -39,6 +54,24 @@ const NavBar = ({ project, role, task }) => {
         {/* INFO */}
         <NavP>{project && project.start_time}</NavP> {/* Project Status */}
       </WrapperDiv>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '5px',
+        }}
+      >
+        <NavButton onClick={handleInviteCode} value={'worker'}>
+          {'Generate Invite Code for worker'}
+        </NavButton>
+        <span>{workerCode} </span>
+        <NavButton onClick={handleInviteCode} value={'client'}>
+          {'Generate Invite Code for client'}
+        </NavButton>
+        <span>{clientCode} </span>
+      </div>
+
       {openModal && (
         <UpdateProjectModal
           onClose={openInfoModal}
@@ -46,7 +79,7 @@ const NavBar = ({ project, role, task }) => {
         ></UpdateProjectModal>
       )}
       <WrapperDiv>
-        <NavButton>Get History</NavButton> {/* GET HISTORY */}
+        <NavButton onClick={history}>Get History</NavButton> {/* GET HISTORY */}
         <NavButton>End Project</NavButton> {/* END PROJECT */}
         <NavButton>X</NavButton> {/* CANCEL END PROJECT */}
       </WrapperDiv>

@@ -17,6 +17,17 @@ const NavButton = styled.button`
   background-color: #8f8f8f;
   color: #ffffff;
   cursor: pointer;
+  transition: background-color 0.5s ease, transform 0.3s ease,
+    box-shadow 0.5s ease;
+
+  &:hover {
+    background-color: #6f6f6f;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 const NavP = styled.p``;

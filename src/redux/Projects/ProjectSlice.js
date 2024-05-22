@@ -4,6 +4,7 @@ import * as API from './operations.js';
 const initialState = {
   allProjects: null,
   project: null,
+  history: null,
 };
 
 const handlePending = state => {};
@@ -23,6 +24,7 @@ const projectSlice = createSlice({
       .addCase(API.createNewProject.pending, (state, action) => {})
       .addCase(API.createNewProject.fulfilled, (state, action) => {
         state.project = action.payload.data;
+        state.allProjects.push(action.payload.data);
       })
       .addCase(API.createNewProject.rejected, (state, action) => {
         console.log(action, 'REJECTED');
@@ -40,6 +42,14 @@ const projectSlice = createSlice({
         console.log(action);
       })
       .addCase(API.updateProject.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(API.getHistoryProject.pending, (state, action) => {})
+      .addCase(API.getHistoryProject.fulfilled, (state, action) => {
+        // state.project = action.payload;
+        state.history = action.payload;
+      })
+      .addCase(API.getHistoryProject.rejected, (state, action) => {
         console.log(action);
       });
   },

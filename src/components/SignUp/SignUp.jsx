@@ -106,6 +106,7 @@ export const SignUpForm = ({ signUp }) => {
           <p style={{ color: 'red' }}>{errors.repeatPassword}</p>
         )}
       </LabelForm>
+      <BtnForm type="submit">Sign Up</BtnForm>
       <BtnForm
         type="button"
         onClick={() => {
@@ -114,7 +115,6 @@ export const SignUpForm = ({ signUp }) => {
       >
         Back to Log In
       </BtnForm>
-      <BtnForm type="submit">Sign Up</BtnForm>
     </Form>
   );
 };

@@ -24,11 +24,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AddProjectModal } from '../components/AddProjectModal/AddProjectModal.jsx';
 import { selectProjects } from '../redux/Projects/selectors.js';
 import { Link, useNavigate } from 'react-router-dom';
+import { accpetInviteCode } from '../redux/InviteCode/operations.js';
+// import { selectToken } from '../redux/User/selectos';
 
 export const InviteCodePage = () => {
   const [projectWindow, setProjectWindow] = useState(false);
   const [inviteCodeWindow, setInviteCodeWindow] = useState(false);
+  const [code, setCode] = useState('');
   const [modal, setModal] = useState(false);
+  // const selectTokenUser = useSelector(selectToken);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -75,7 +80,7 @@ export const InviteCodePage = () => {
       dispatch(createNewProject(data));
       alert('Successfully created');
       setModal(false);
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
@@ -93,6 +98,10 @@ export const InviteCodePage = () => {
     localStorage.setItem('token', '');
     localStorage.setItem('userID', '');
     navigate('/diploma_front/auth/login');
+    window.location.reload();
+  };
+  const handleAcceptCode = () => {
+    dispatch(accpetInviteCode(code));
   };
 
   return (
@@ -110,8 +119,12 @@ export const InviteCodePage = () => {
       {inviteCodeWindow && (
         <IntiveCodeContainer>
           <CloseWindowBtn onClick={OpenInviteCodeWindow}>X</CloseWindowBtn>
-          <InviteCodeInput placeholder="Invite Code"></InviteCodeInput>
-          <InviteCodeBtn>{'ENTER'}</InviteCodeBtn>
+          <InviteCodeInput
+            placeholder="Invite Code"
+            value={code}
+            onChange={e => setCode(e.target.value)}
+          ></InviteCodeInput>
+          <InviteCodeBtn onClick={handleAcceptCode}>{'ENTER'}</InviteCodeBtn>
         </IntiveCodeContainer>
       )}
       {projectWindow && (

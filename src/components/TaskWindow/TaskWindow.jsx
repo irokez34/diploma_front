@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   OptionTask,
   SeletTask,
@@ -16,18 +15,27 @@ import {
   TaskDropDown,
   TaskHead,
   TaskInput,
-  TaskSubmitBtn,
 } from './TaskWindow.styled';
 import moment from 'moment-timezone';
 import { ActivityChat } from 'components/Activity/ActivityChat';
 
-const TaskWindow = ({ task, sendUserAttach, role }) => {
-  const [fileChoose, setFileChoose] = useState(null);
-  const handleFileChange = e => {
-    const file = e.target.files;
-    setFileChoose(file);
-  };
-
+const TaskWindow = ({
+  task,
+  sendUserAttach,
+  role,
+  commentSubmit,
+  userComments,
+  attach,
+}) => {
+  // const handleFileChange = e => {
+  //   if (!e.target.files[0]) {
+  //     return;
+  //   }
+  //   const file = e.target.files;
+  //   const formdata = new FormData();
+  //   file && formdata.append('file', file[0]);
+  //   sendUserAttach(formdata);
+  // };
   const converTime = date => {
     if (!date) {
       return 'No Time';
@@ -39,27 +47,25 @@ const TaskWindow = ({ task, sendUserAttach, role }) => {
       .format('DD.MM.YYYY HH:mm');
     return formattedTime;
   };
-  const handleSubmit = () => {
-    const formdata = new FormData();
-    formdata.append('file', fileChoose[0]);
-    sendUserAttach(formdata);
-    setFileChoose(null);
-  };
 
   return (
     <TaskContainerProject>
       <TaskDescriptionContainer>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <TaskHead>{task && task.name.toUpperCase()}</TaskHead>
-          <TaskInput type="file" onChange={handleFileChange}></TaskInput>
 
           <TaskDescription>{'Description'}</TaskDescription>
           <TaskDescriptionSpan>{task && task.description}</TaskDescriptionSpan>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-          <ActivityChat submit={handleSubmit} />
-          <TaskSubmitBtn onClick={handleSubmit}>{'Submit'}</TaskSubmitBtn>
-        </div>
+
+        <ActivityChat
+          userAttach={sendUserAttach}
+          attachm={attach}
+          submit={commentSubmit}
+          comments={userComments}
+          time={converTime}
+          getAttachOnclick={attach}
+        />
       </TaskDescriptionContainer>
       <TaskDetailsContainer>
         <TaskDropDown>
@@ -75,7 +81,9 @@ const TaskWindow = ({ task, sendUserAttach, role }) => {
             <TaskDetailsLi>
               {'Original estimate'}
               {/* owner */}
-              <TaskDetailsSpan>{`${task && task.tracking_time} h`}</TaskDetailsSpan>
+              <TaskDetailsSpan>{`${
+                task && task.tracking_time
+              } h`}</TaskDetailsSpan>
             </TaskDetailsLi>
             <TaskDetailsLi>
               {'Logged Time'}
@@ -92,7 +100,9 @@ const TaskWindow = ({ task, sendUserAttach, role }) => {
             </TaskDetailsLi>
             <TaskDetailsLi>
               {'Start time'}
-              <TaskDetailsSpan>{converTime(12313)}</TaskDetailsSpan>
+              <TaskDetailsSpan>
+                {converTime(task && task.creation_time)}
+              </TaskDetailsSpan>
             </TaskDetailsLi>
             <TaskDetailsLi>
               {'End time'}

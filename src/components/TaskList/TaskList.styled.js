@@ -48,7 +48,6 @@ const TaskListItem = styled.li`
   background-color: white;
   color: black;
   width: 275px;
-  padding: 10px 0;
 `;
 const TaskListContainer = styled.div`
   display: flex;

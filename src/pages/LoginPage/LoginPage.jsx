@@ -16,7 +16,7 @@ export const LoginPage = () => {
       const resultAction = await dispatch(loginUser(body));
       unwrapResult(resultAction);
       alert('Welcome');
-      navigate('/diploma_front/');
+      navigate('/diploma_front/invite');
     } catch (error) {
       console.error('Registration failed:', error);
       alert('Неправильні данні');

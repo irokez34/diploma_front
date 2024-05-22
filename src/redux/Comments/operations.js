@@ -4,42 +4,48 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 export const getComments = createAsyncThunk(
-  'comments',
+  'comments/get',
   async (task_id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/comments/`, {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('/api/comments/', {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `${token}`,
         },
         params: { task_id },
       });
-      console.log(response);
+
       return response.data;
     } catch (error) {
       console.log(error);
+      return error;
     }
   }
 );
 
 export const createComments = createAsyncThunk(
-  'comments',
+  'comments/create',
   async (data, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.post('/api/comments/', data, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `${token}`,
         },
       });
-      console.log(response);
-      return response;
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       console.log(error);
+      return error;
     }
   }
 );
 
 export const editComments = createAsyncThunk(
-  'comments',
+  'comments/edit',
   async (data, comment_id, { rejectWithValue }) => {
     try {
       const response = await axios.put(`/api/comments/${comment_id}`, data);
@@ -47,12 +53,13 @@ export const editComments = createAsyncThunk(
       return response;
     } catch (error) {
       console.log(error);
+      return error;
     }
   }
 );
 
 export const deleteComments = createAsyncThunk(
-  'comments',
+  'comments/delete',
   async (comment_id, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`/api/comments/${comment_id}`, {
@@ -64,6 +71,7 @@ export const deleteComments = createAsyncThunk(
       return response;
     } catch (error) {
       console.log(error);
+      return error;
     }
   }
 );
