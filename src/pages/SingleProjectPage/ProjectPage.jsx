@@ -28,7 +28,7 @@ import {
   getComments,
 } from '../../redux/Comments/operations.js';
 
-import { selectAttachID } from '../../redux/Attach/selectors';
+import { selectAttachData, selectAttachID } from '../../redux/Attach/selectors';
 import { selectComments } from '../../redux/Comments/selectors.js';
 export const ProjectPage = () => {
   const [userId] = useState(localStorage.getItem('userID'));
@@ -45,6 +45,7 @@ export const ProjectPage = () => {
   const [userRole, setUserRole] = useState('');
   const attacmID = useSelector(selectAttachID);
   const userComments = useSelector(selectComments);
+  const attachmData = useSelector(selectAttachData);
 
   const taskWindowHandle = useMemo(() => {
     return projectTask => {
@@ -83,7 +84,6 @@ export const ProjectPage = () => {
   };
 
   const httSendAttchm = data => {
-    console.log(data);
     dispatch(sendAttach({ userData: data, project_id }));
   };
 
@@ -123,6 +123,9 @@ export const ProjectPage = () => {
     dispatch(createComments(userData));
   };
 
+  // const handleOpenImg = base64 => {
+  //   return <img src={`data:image/png;base64,${base64}`} alt="Base64" />;
+  // };
   const taskElements =
     allTask &&
     allTask.map(taskMap => (
@@ -138,6 +141,8 @@ export const ProjectPage = () => {
 
   const handleGetAttachm = data => {
     dispatch(getAttach(data));
+    console.log(attachmData);
+    return <img src={`data:image/png;base64,${attachmData}`} alt="Base64" />;
   };
 
   return (
@@ -159,6 +164,7 @@ export const ProjectPage = () => {
 
         {taskStatus && (
           <TaskWindow
+            // openImg={handleOpenImg}
             attach={handleGetAttachm}
             userComments={userComments}
             commentSubmit={handleSubmiComment}

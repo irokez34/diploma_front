@@ -19,25 +19,25 @@ export const ActivityChat = ({
   submit,
   time,
   getAttachOnclick,
-  userAttach,
+  sendAttacmh,
 }) => {
   const [userComment, setUserComment] = useState('');
-  const [FileChoose, setFileChoose] = useState('');
-  const handleFileChange = e => {
-    if (!e.target.files[0]) {
-      return;
-    }
-    const file = e.target.files;
-    const formdata = new FormData();
-    file && formdata.append('file', file[0]);
-    setFileChoose(formdata);
-  };
+  // const [FileChoose, setFileChoose] = useState(new Form);
+  // const handleFileChange = e => {
+  //   if (!e.target.files[0]) {
+  //     return;
+  //   }
+  //   const file = e.target.files;
+  //   const formdata = new FormData();
+  //   file && formdata.append('file', file[0]);
+  //   setFileChoose(formdata);
+  // };
 
   const handleSubmit = () => {
     submit(userComment);
-    userAttach(FileChoose);
+    // sendAttacmh(FileChoose);
     setUserComment('');
-    setFileChoose('');
+    // setFileChoose('');
   };
 
   const comment =
@@ -61,7 +61,7 @@ export const ActivityChat = ({
 
   return (
     <TaskActivity>
-      <TaskInput type="file" onChange={handleFileChange} />
+      {/* <TaskInput type="file" onChange={handleFileChange} /> */}
       <TaskActivityHead>{'Activity'}</TaskActivityHead>
       <TaskChat>
         <TaskChatList>{comment}</TaskChatList>

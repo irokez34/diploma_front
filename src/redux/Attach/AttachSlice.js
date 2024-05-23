@@ -5,6 +5,7 @@ const initialState = {
   attachments: [],
   error: null,
   attachmID: '',
+  attachm: null,
 };
 const handlePending = state => {
   state.isLoading = true;
@@ -26,6 +27,7 @@ const attachSlice = createSlice({
       .addCase(API.getAttach.pending, handlePending)
       .addCase(API.getAttach.fulfilled, (state, { payload }) => {
         console.log(payload);
+        state.attachm = payload.data;
         // state.attachments.push(payload);
         // state.attachmID = payload._id;
       })

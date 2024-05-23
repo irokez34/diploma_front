@@ -22,20 +22,21 @@ import { ActivityChat } from 'components/Activity/ActivityChat';
 const TaskWindow = ({
   task,
   sendUserAttach,
+  openImg,
   role,
   commentSubmit,
   userComments,
   attach,
 }) => {
-  // const handleFileChange = e => {
-  //   if (!e.target.files[0]) {
-  //     return;
-  //   }
-  //   const file = e.target.files;
-  //   const formdata = new FormData();
-  //   file && formdata.append('file', file[0]);
-  //   sendUserAttach(formdata);
-  // };
+  const handleFileChange = e => {
+    if (!e.target.files[0]) {
+      return;
+    }
+    const file = e.target.files;
+    const formdata = new FormData();
+    file && formdata.append('file', file[0]);
+    sendUserAttach(formdata);
+  };
   const converTime = date => {
     if (!date) {
       return 'No Time';
@@ -53,13 +54,17 @@ const TaskWindow = ({
       <TaskDescriptionContainer>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <TaskHead>{task && task.name.toUpperCase()}</TaskHead>
-
+          <TaskInput
+            type="file"
+            onChange={handleFileChange}
+            accept=".jpg, .jpeg, .png"
+          />
           <TaskDescription>{'Description'}</TaskDescription>
           <TaskDescriptionSpan>{task && task.description}</TaskDescriptionSpan>
         </div>
 
         <ActivityChat
-          userAttach={sendUserAttach}
+          sendAttacmh={sendUserAttach}
           attachm={attach}
           submit={commentSubmit}
           comments={userComments}
