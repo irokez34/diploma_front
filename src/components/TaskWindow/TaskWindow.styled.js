@@ -16,14 +16,26 @@ const TaskHead = styled.h2`
 const TaskDescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
- justify-content: space-between;
+  justify-content: space-between;
   // gap: 30px;
 `;
 const TaskSpan = styled.span``;
 
 const TaskInput = styled.input``;
-const TaskDescription = styled.p``;
-const TaskDescriptionSpan = styled.span``;
+const TaskDescription = styled.p`
+  font-size: 18px;
+  font-weight: bold;
+`;
+const TaskDescriptionSpan = styled.span`
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+  max-width: 700px;
+`;
 const Container = styled.div``;
 
 const TaskStatus = styled.input``;
@@ -31,6 +43,31 @@ const TaskStatus = styled.input``;
 const TaskDropDown = styled.div``;
 const SeletTask = styled.select``;
 const OptionTask = styled.option``;
+
+const TaskLockedBtn = styled.button`
+  width: 150px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    opacity: 0.5; /* снижение прозрачности */
+    cursor: not-allowed; /* изменение курсора */
+  }
+`;
+
 const TaskDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,7 +116,33 @@ const TaskDetailsListContainer = styled.div`
   gap: 15px;
 `;
 
-const TaskSubmitBtn = styled.button``;
+const TaskSubmitBtn = styled.button`
+  width: 120px;
+  height: 40px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: #ced4da;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+`;
 
 export {
   TaskHead,
@@ -95,6 +158,7 @@ export {
   OptionTask,
   TaskDetailsSpan,
   TaskStatus,
+  TaskLockedBtn,
   SeletTask,
   TaskSpan,
   TaskContainerProject,

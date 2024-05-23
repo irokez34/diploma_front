@@ -11,11 +11,10 @@ const TaskList = ({ createTaskModal, taskEl, role }) => {
   return (
     <TaskContainer>
       <TaskListContainer>
-        {role === 'owner' && (
-          <CreateTaskButton onClick={createTaskModal}>
-            + CREATE TASK
-          </CreateTaskButton>
-        )}
+        <CreateTaskButton onClick={createTaskModal} disabled={role !== 'owner'}>
+          + CREATE TASK
+        </CreateTaskButton>
+
         <TaskListUl>{taskEl}</TaskListUl>
       </TaskListContainer>
 

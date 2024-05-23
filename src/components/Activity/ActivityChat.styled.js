@@ -45,8 +45,11 @@ const CommentContainer = styled.span`
   overflow-wrap: break-word; /* Break words if necessary */
 `;
 const MediaBtn = styled.button`
-  border: 1px solid red;
+  background-color: #B1B1B1;
+  color: white;
   width: 100px;
+  border-radius: 5px;
+  
 `;
 export {
   TaskActivity,

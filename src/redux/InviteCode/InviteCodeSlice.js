@@ -4,6 +4,7 @@ import * as API from './operations.js';
 const initialState = {
   userType: '',
   code: null,
+  projectId: null,
 };
 
 const InviteCodeSlice = createSlice({
@@ -22,6 +23,7 @@ const InviteCodeSlice = createSlice({
       })
       .addCase(API.accpetInviteCode.pending, (state, action) => {})
       .addCase(API.accpetInviteCode.fulfilled, (state, action) => {
+          
         // console.log(' PAYLOAD: ', action.payload);
       })
       .addCase(API.accpetInviteCode.rejected, (state, action) => {

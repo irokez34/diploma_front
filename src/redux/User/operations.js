@@ -33,6 +33,7 @@ export const loginUser = createAsyncThunk(
   'auth/login',
   async (user, { rejectWithValue }) => {
     try {
+      console.log(user);
       const { data } = await axios.post('/api/auth/login', user, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

@@ -9,19 +9,19 @@ import {
   TaskChatItem,
   TaskChatList,
 } from './ActivityChat.styled';
-import {
-  TaskInput,
-  TaskSubmitBtn,
-} from 'components/TaskWindow/TaskWindow.styled';
+import { TaskSubmitBtn } from 'components/TaskWindow/TaskWindow.styled';
+import { ImgModal } from 'components/ModalImg/ModalImg';
 
 export const ActivityChat = ({
   comments,
   submit,
   time,
+  locked,
   getAttachOnclick,
   sendAttacmh,
 }) => {
   const [userComment, setUserComment] = useState('');
+  const [imgModal, setImgModal] = useState(false);
   // const [FileChoose, setFileChoose] = useState(new Form);
   // const handleFileChange = e => {
   //   if (!e.target.files[0]) {
@@ -32,6 +32,13 @@ export const ActivityChat = ({
   //   file && formdata.append('file', file[0]);
   //   setFileChoose(formdata);
   // };
+  const closeModal = () => {
+    if (imgModal) {
+      setImgModal(false);
+    } else if (!imgModal) {
+      setImgModal(true);
+    }
+  };
 
   const handleSubmit = () => {
     submit(userComment);
@@ -51,10 +58,16 @@ export const ActivityChat = ({
         <CommentContainer>
           {com.data}
           {com.attachments.length > 0 && (
-            <MediaBtn onClick={() => getAttachOnclick(com.attachments[0])}>
+            <MediaBtn
+              onClick={() => {
+                getAttachOnclick(com.attachments[0]);
+                setImgModal(true);
+              }}
+            >
               {'Media'}
             </MediaBtn>
           )}
+          {imgModal && <ImgModal onClose={closeModal} />}
         </CommentContainer>
       </TaskChatItem>
     ));
@@ -72,8 +85,11 @@ export const ActivityChat = ({
             setUserComment(e.target.value);
           }}
           value={userComment}
+          disabled={locked}
         />
-        <TaskSubmitBtn onClick={handleSubmit}>{'Submit'}</TaskSubmitBtn>
+        <TaskSubmitBtn onClick={handleSubmit} disabled={locked}>
+          {'Submit'}
+        </TaskSubmitBtn>
       </TaskChat>
     </TaskActivity>
   );

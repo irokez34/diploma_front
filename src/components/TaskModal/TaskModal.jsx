@@ -48,7 +48,6 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
     }
 
     createTask(data);
-    window.location.reload();
   };
 
   return (

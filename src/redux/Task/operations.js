@@ -15,6 +15,7 @@ export const getAllTask = createAsyncThunk(
         },
         params: { project_id },
       });
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -35,6 +36,7 @@ export const createNewTask = createAsyncThunk(
           Authorization: `${token}`,
         },
       });
+      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -83,3 +85,24 @@ export const updateOneTask = createAsyncThunk(
 );
 
 export const deleteOneTask = createAsyncThunk('');
+
+export const closeTask = createAsyncThunk(
+  'task/close',
+  async (task_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      console.log();
+      const response = await axios.post(`/api/tasks/${task_id}/close`, null, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token.toString()}`,
+        },
+      });
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+);

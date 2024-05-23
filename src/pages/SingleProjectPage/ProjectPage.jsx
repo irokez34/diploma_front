@@ -9,12 +9,17 @@ import {
 } from '../../redux/Projects/operations';
 import { selectProject } from '../../redux/Projects/selectors.js';
 import {
+  closeTask,
   createNewTask,
   getAllTask,
   getOneTask,
 } from '../../redux/Task/operations.js';
 
-import { selectTask, selectTasks } from '../../redux/Task/selectos.js';
+import {
+  selectTask,
+  selectTaskClose,
+  selectTasks,
+} from '../../redux/Task/selectos.js';
 import { TaskModal } from 'components/TaskModal/TaskModal.jsx';
 import { getAttach, sendAttach } from '../../redux/Attach/operations.js';
 // import { selectUserAttachm } from '../../redux/Attach/selectors.js';
@@ -28,7 +33,7 @@ import {
   getComments,
 } from '../../redux/Comments/operations.js';
 
-import { selectAttachData, selectAttachID } from '../../redux/Attach/selectors';
+import { selectAttachID } from '../../redux/Attach/selectors';
 import { selectComments } from '../../redux/Comments/selectors.js';
 export const ProjectPage = () => {
   const [userId] = useState(localStorage.getItem('userID'));
@@ -45,7 +50,6 @@ export const ProjectPage = () => {
   const [userRole, setUserRole] = useState('');
   const attacmID = useSelector(selectAttachID);
   const userComments = useSelector(selectComments);
-  const attachmData = useSelector(selectAttachData);
 
   const taskWindowHandle = useMemo(() => {
     return projectTask => {
@@ -81,6 +85,7 @@ export const ProjectPage = () => {
   };
   const handleCreateTask = data => {
     dispatch(createNewTask(data));
+    setModal(false);
   };
 
   const httSendAttchm = data => {
@@ -90,6 +95,11 @@ export const ProjectPage = () => {
   const InviteCodeGeneration = data => {
     const userData = { type: data, project_id };
     dispatch(generationInviteCode(userData));
+  };
+
+  const handleCloseTask = taskId => {
+    dispatch(closeTask(taskId));
+    setTaskStatus(false);
   };
 
   const handleGetHistory = async () => {
@@ -111,10 +121,10 @@ export const ProjectPage = () => {
   };
 
   const handleSubmiComment = data => {
-    if (!data) {
-      alert('fill comment field');
-      return;
-    }
+    // if (!data) {
+    //   alert('fill comment field');
+    //   return;
+    // }
     const userData = {
       data,
       task_id: userTask._id,
@@ -123,9 +133,7 @@ export const ProjectPage = () => {
     dispatch(createComments(userData));
   };
 
-  // const handleOpenImg = base64 => {
-  //   return <img src={`data:image/png;base64,${base64}`} alt="Base64" />;
-  // };
+  console.log(userRole);
   const taskElements =
     allTask &&
     allTask.map(taskMap => (
@@ -141,8 +149,6 @@ export const ProjectPage = () => {
 
   const handleGetAttachm = data => {
     dispatch(getAttach(data));
-    console.log(attachmData);
-    return <img src={`data:image/png;base64,${attachmData}`} alt="Base64" />;
   };
 
   return (
@@ -153,6 +159,7 @@ export const ProjectPage = () => {
         code={selectorinviteCode}
         inviteCode={InviteCodeGeneration}
         project={project}
+        role={userRole}
       />
       <ProjectPageContainer>
         <TaskList
@@ -164,6 +171,7 @@ export const ProjectPage = () => {
 
         {taskStatus && (
           <TaskWindow
+            closeTaskBtn={handleCloseTask}
             // openImg={handleOpenImg}
             attach={handleGetAttachm}
             userComments={userComments}

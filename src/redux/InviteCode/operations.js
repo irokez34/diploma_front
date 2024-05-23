@@ -30,13 +30,12 @@ export const accpetInviteCode = createAsyncThunk(
   async (code, API) => {
     try {
       const token = localStorage.getItem('token');
-
-      const response = await axios.post('/api/projects/accept-invite', {
+      const response = await axios.post('/api/projects/accept-invite', null, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
         },
-        // `${token}`
+      
         params: { code },
       });
       console.log(response);

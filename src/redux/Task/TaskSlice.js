@@ -4,6 +4,7 @@ import * as API from './operations.js';
 const initialState = {
   tasks: null,
   task: null,
+  taskClose: false,
 };
 
 const TaskSlice = createSlice({
@@ -39,6 +40,15 @@ const TaskSlice = createSlice({
         state.task = action.payload;
       })
       .addCase(API.getOneTask.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(API.closeTask.pending, (state, action) => {})
+      .addCase(API.closeTask.fulfilled, (state, action) => {
+        console.log(action);
+        state.taskClose = true;
+        // state.task = action.payload;
+      })
+      .addCase(API.closeTask.rejected, (state, action) => {
         console.log(action);
       });
   },

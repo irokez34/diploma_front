@@ -28,6 +28,12 @@ const NavButton = styled.button`
   &:active {
     transform: scale(0.95);
   }
+  &:disabled {
+    opacity: 0.7; /* Уменьшаем прозрачность */
+    cursor: not-allowed; /* Изменяем курсор */
+    background-color: #cccccc; /* Цвет фона для недоступной кнопки */
+    box-shadow: none; /* Убираем тень */
+  }
 `;
 
 const NavP = styled.p``;

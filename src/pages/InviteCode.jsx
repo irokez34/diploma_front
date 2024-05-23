@@ -101,7 +101,9 @@ export const InviteCodePage = () => {
     window.location.reload();
   };
   const handleAcceptCode = () => {
+    console.log(code);
     dispatch(accpetInviteCode(code));
+   
   };
 
   return (
