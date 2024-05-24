@@ -25,11 +25,20 @@ const commentSlice = createSlice({
       .addCase(API.createComments.fulfilled, (state, { payload }) => {
         console.log(payload);
         state.commentData.push(payload);
-        // state.commentData = 
+        // state.commentData =
         // state.commentData = [...state.commentData, payload.data];
         // state.attachments = payload.attachments;
       })
       .addCase(API.createComments.rejected, (state, action) => {
+        console.log(action.payload);
+      })
+      .addCase(API.deleteComments.pending, handlePending)
+      .addCase(API.deleteComments.fulfilled, (state, { payload }) => {
+        state.commentData = state.commentData.filter(
+          el => el.id !== payload._id
+        );
+      })
+      .addCase(API.deleteComments.rejected, (state, action) => {
         console.log(action.payload);
       });
   },

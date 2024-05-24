@@ -181,6 +181,7 @@ export const ProjectPage = () => {
 
   const handleDeleteComment = data => {
     dispatch(deleteComments(data));
+    window.location.reload();
   };
 
   return (

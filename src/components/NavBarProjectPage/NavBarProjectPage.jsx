@@ -10,18 +10,18 @@ import {
 import { UpdateProjectModal } from 'components/AddProjectModal/UpdateProjectModal';
 import { useDispatch } from 'react-redux';
 import { updateProject } from '../../redux/Projects/operations';
-import { NotificationMessage } from 'components/Notification-Msg/Notification';
-import { useLocation, useNavigate } from 'react-router-dom';
+// import { NotificationMessage } from 'components/Notification-Msg/Notification';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = ({ project, inviteCode, code, role, type, history }) => {
   const dispatch = useDispatch();
-  const { state } = useLocation();
+  // const { state } = useLocation();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState();
   const [workerCode, setWorkerCode] = useState('');
   const [clientCode, setClientCode] = useState('');
-  const [messageWorker, setMessageWorker] = useState(false);
-  const [messageClient, setMessageClient] = useState(false);
+  // const [messageWorker, setMessageWorker] = useState(false);
+  // const [messageClient, setMessageClient] = useState(false);
   useEffect(() => {
     if (type === 'worker') {
       setWorkerCode(code);
@@ -48,10 +48,10 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
   const handleInviteCode = e => {
     inviteCode(e.target.value);
     if (e.target.value === 'worker') {
-      setMessageWorker(true);
-    } else if (e.target.value === 'client') setMessageClient(true);
+      // setMessageWorker(true);
+    } else if (e.target.value === 'client') ;
   };
-
+// setMessageClient(true)
   const handleBack = () => {
     navigate('/diploma_front/');
   };
