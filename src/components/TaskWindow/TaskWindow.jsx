@@ -29,6 +29,7 @@ const TaskWindow = ({
   userComments,
   closeTaskBtn,
   attach,
+  deleteUserComment,
   status,
   loggedTime,
 }) => {
@@ -88,6 +89,7 @@ const TaskWindow = ({
         </div>
         <NotificationMessage />
         <ActivityChat
+          deleteComment={deleteUserComment}
           locked={task && task.locked}
           sendAttacmh={sendUserAttach}
           attachm={attach}

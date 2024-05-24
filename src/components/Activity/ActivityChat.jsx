@@ -12,6 +12,7 @@ import {
 } from './ActivityChat.styled';
 import { TaskSubmitBtn } from 'components/TaskWindow/TaskWindow.styled';
 import { ImgModal } from 'components/ModalImg/ModalImg';
+import { DeleteCommentModal } from 'components/DeleteComment/DeleteCommentModal';
 
 export const ActivityChat = ({
   comments,
@@ -39,14 +40,14 @@ export const ActivityChat = ({
     setUserComment('');
   };
 
-  // const handleCloseModal = comment_id => {
-  //   if (taskDeleteModal) {
-  //     setDeleComment(false);
-  //   } else {
-  //     setDeleComment(true);
-  //   }
-  //   setDeleteTaskId(comment_id);
-  // };
+  const handleCloseModal = comment_id => {
+    if (deleComment) {
+      setDeleComment(false);
+    } else {
+      setDeleComment(true);
+    }
+    setCommentId(comment_id);
+  };
 
   const comment =
     comments &&
@@ -58,7 +59,11 @@ export const ActivityChat = ({
         </span>
         <CommentContainer>
           {com.data}
-          <DeleteCommentBtn>
+          <DeleteCommentBtn
+            onClick={() => {
+              handleCloseModal(com._id);
+            }}
+          >
             X {/* handleCloseModal(com._id) */}
           </DeleteCommentBtn>
           {com.attachments.length > 0 && (
@@ -95,6 +100,12 @@ export const ActivityChat = ({
           {'Submit'}
         </TaskSubmitBtn>
       </TaskChat>
+      {deleComment && (
+        <DeleteCommentModal
+          onClose={handleCloseModal}
+          deleteComment={() => commentId && deleteComment(commentId)}
+        />
+      )}
     </TaskActivity>
   );
 };

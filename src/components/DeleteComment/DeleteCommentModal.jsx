@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { ButtonClose, Info, Modal, Overlay } from './DeleteCommentModal.styled';
-export const DeleteProjectModal = ({ onClose, deleteComment }) => {
+export const DeleteCommentModal = ({ onClose, deleteComment }) => {
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
