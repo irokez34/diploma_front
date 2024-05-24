@@ -24,14 +24,15 @@ import { NotificationMessage } from 'components/Notification-Msg/Notification';
 const TaskWindow = ({
   task,
   sendUserAttach,
-  openImg,
   role,
   commentSubmit,
   userComments,
   closeTaskBtn,
   attach,
+  status,
+  loggedTime,
 }) => {
-  console.log(task);
+  // console.log(task);
   const handleFileChange = e => {
     if (!e.target.files[0]) {
       return;
@@ -51,6 +52,17 @@ const TaskWindow = ({
       .tz('Europe/Kiev')
       .format('DD.MM.YYYY HH:mm');
     return formattedTime;
+  };
+
+  const handleStatus = e => {
+    const data = { ...task, status: e.target.value };
+    status(data, task._id);
+  };
+  const handleLoggedTime = e => {
+    setTimeout(() => {
+      const data = { ...task, logged_time: e.target.value };
+      e.target.value > 0 && loggedTime(data, task._id);
+    }, 5000);
   };
 
   return (
@@ -95,7 +107,11 @@ const TaskWindow = ({
           Close Task
         </TaskLockedBtn>
         <TaskDropDown>
-          <SeletTask disabled={task && task.locked}>
+          <SeletTask
+            disabled={task && task.locked}
+            onChange={handleStatus}
+            value={task && task.status}
+          >
             <OptionTask value="to_do">{'To Do'}</OptionTask>
             <OptionTask value="in_progress">{'In Progress'}</OptionTask>
             <OptionTask value="done">{'Done'}</OptionTask>
@@ -116,11 +132,13 @@ const TaskWindow = ({
               {/* worker */}
               <TaskDetailsInput
                 type="number"
-                placeholder="0"
+                placeholder={task && task.logged_time}
                 min="0"
                 max="100"
                 id="number"
+                // value={task && task.logged_time}
                 disabled={role !== 'worker' || (task && task.locked)}
+                onChange={handleLoggedTime}
                 // value={task && task.logged_time}
                 // {role === 'owner' || 'client'}
               ></TaskDetailsInput>

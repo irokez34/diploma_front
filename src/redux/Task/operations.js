@@ -67,6 +67,7 @@ export const getOneTask = createAsyncThunk(
 export const updateOneTask = createAsyncThunk(
   'task/update',
   async ({ userData, task_id }, API) => {
+    // console.log(userData, task_id);
     try {
       const token = localStorage.getItem('token');
       const { data } = await axios.put(`/api/tasks/${task_id}`, userData, {
@@ -84,14 +85,31 @@ export const updateOneTask = createAsyncThunk(
   }
 );
 
-export const deleteOneTask = createAsyncThunk('');
+export const deleteOneTask = createAsyncThunk(
+  'task/delete',
+  async (task_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(`/api/tasks/${task_id}`,  {
+        headers: {
+          Authorization: `${token.toString()}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
 
 export const closeTask = createAsyncThunk(
   'task/close',
   async (task_id, API) => {
     try {
       const token = localStorage.getItem('token');
-      console.log();
+
       const response = await axios.post(`/api/tasks/${task_id}/close`, null, {
         headers: {
           'Content-Type': 'application/json',

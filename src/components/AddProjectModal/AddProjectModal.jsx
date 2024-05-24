@@ -56,6 +56,7 @@ export const AddProjectModal = ({ onClose, createProject }) => {
             <FormCreateProject>
               <InputField
                 type="text"
+                maxLength={'15'}
                 name="projectName"
                 placeholder="Project Name"
                 value={data.projectName}

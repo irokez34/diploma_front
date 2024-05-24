@@ -37,19 +37,26 @@ const TaskChatList = styled.ul`
 `;
 const CommentContainer = styled.span`
   padding: 5px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border-radius: 5px;
-
+  position: relative;
   flex-wrap: wrap; /* Allow wrapping to the next line */
   width: 250px; /* Maximum width before wrapping */
   overflow-wrap: break-word; /* Break words if necessary */
 `;
+const DeleteCommentBtn = styled.button`
+  position: absolute;
+  background-color: red;
+  color: white;
+  font-size: 13px;
+  top: 1%;
+  right: 0.5%;
+`;
 const MediaBtn = styled.button`
-  background-color: #B1B1B1;
+  background-color: #b1b1b1;
   color: white;
   width: 100px;
   border-radius: 5px;
-  
 `;
 export {
   TaskActivity,
@@ -57,6 +64,7 @@ export {
   TaskActivityHead,
   TaskActivityInput,
   CommentContainer,
+  DeleteCommentBtn,
   TaskChatItem,
   TaskChat,
   TaskChatList,

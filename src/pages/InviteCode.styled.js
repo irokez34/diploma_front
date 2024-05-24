@@ -110,6 +110,7 @@ const ProjectsContainer = styled.div`
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
   animation: ${fadeIn} 0.3s ease-out;
   max-height: 300px;
+
   padding: 30px;
 `;
 
@@ -137,21 +138,39 @@ const AddProjectBtn = styled.button`
 const ProjectListItem = styled.li`
   width: 275px;
   background-color: white;
-
   display: flex;
-  justify-content: center;
+
   font-weight: 400;
   font-size: 16px;
   border-radius: 8px;
 `;
+const DeleteProjectBtn = styled.button`
+  z-index: 100;
+  background-color: #ff4d4d;
+  color: white;
+  width: 11%;
+  padding: 10px;
+  border: none;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: #ff1a1a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+`;
+
 const ProjectBtn = styled.button`
-  width: 100%;
+  width: 89%;
   padding: 20px;
   animation: ${fadeIn} 0.3s ease-out; /* Apply the animation */
   
   /* Add additional styles for the button */
   border: none;
-  border-radius: 8px;
+  // border-radius: 8px;
   background-color: #8f8f8f;
   color: white;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -165,7 +184,7 @@ const PorjectsList = styled.ul`
   gap: 10px;
   max-height: 350px;
   overflow-y: auto;
-
+  width: 300px;
   flex-direction: column;
 `;
 export {
@@ -176,6 +195,7 @@ export {
   ProjectBtn,
   ProjectsContainer,
   AddProjectBtn,
+  DeleteProjectBtn,
   ProjectsBtn,
   SignOutBtn,
   Container,

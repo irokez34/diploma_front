@@ -20,7 +20,7 @@ const TaskSlice = createSlice({
       .addCase(API.updateOneTask.pending, (state, action) => {})
       .addCase(API.updateOneTask.fulfilled, (state, action) => {
         // state.tasks = action.payload;
-
+        state.task = action.payload;
         console.log(action);
       })
       .addCase(API.updateOneTask.rejected, (state, action) => {
@@ -44,11 +44,17 @@ const TaskSlice = createSlice({
       })
       .addCase(API.closeTask.pending, (state, action) => {})
       .addCase(API.closeTask.fulfilled, (state, action) => {
-        console.log(action);
         state.taskClose = true;
-        // state.task = action.payload;
       })
       .addCase(API.closeTask.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(API.deleteOneTask.pending, (state, action) => {})
+      .addCase(API.deleteOneTask.fulfilled, (state, action) => {
+        // console.log(action.payload);
+        state.tasks = state.tasks.filter(el => el.id !== action.payload._id);
+      })
+      .addCase(API.deleteOneTask.rejected, (state, action) => {
         console.log(action);
       });
   },

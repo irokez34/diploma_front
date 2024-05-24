@@ -107,3 +107,22 @@ export const getHistoryProject = createAsyncThunk(
     }
   }
 );
+
+export const deleteOneProject = createAsyncThunk(
+  'project/delete',
+  async (project_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(`/api/projects/${project_id}`, {
+        headers: {
+          Authorization: `${token.toString()}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);

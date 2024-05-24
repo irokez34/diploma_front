@@ -51,6 +51,17 @@ const projectSlice = createSlice({
       })
       .addCase(API.getHistoryProject.rejected, (state, action) => {
         console.log(action);
+      })
+      .addCase(API.deleteOneProject.pending, (state, action) => {})
+      .addCase(API.deleteOneProject.fulfilled, (state, action) => {
+        // state.project = action.payload;
+        // state.history = action.payload;
+        state.allProjects = state.allProjects.filter(
+          el => el.id !== action.payload._id
+        );
+      })
+      .addCase(API.deleteOneProject.rejected, (state, action) => {
+        console.log(action);
       });
   },
 });

@@ -11,30 +11,30 @@ import { selectProject } from '../../redux/Projects/selectors.js';
 import {
   closeTask,
   createNewTask,
+  deleteOneTask,
   getAllTask,
   getOneTask,
+  updateOneTask,
 } from '../../redux/Task/operations.js';
 
-import {
-  selectTask,
-  selectTaskClose,
-  selectTasks,
-} from '../../redux/Task/selectos.js';
+import { selectTask, selectTasks } from '../../redux/Task/selectos.js';
 import { TaskModal } from 'components/TaskModal/TaskModal.jsx';
 import { getAttach, sendAttach } from '../../redux/Attach/operations.js';
 // import { selectUserAttachm } from '../../redux/Attach/selectors.js';
 import TaskWindow from 'components/TaskWindow/TaskWindow.jsx';
 import { TaskListItem } from 'components/TaskList/TaskList.styled.js';
-import { ProjectPageContainer } from './ProjectPage.styled.js';
+import { DeleteTaskBtn, ProjectPageContainer } from './ProjectPage.styled.js';
 import { generationInviteCode } from '../../redux/InviteCode/operations.js';
 import { selectCode, selectType } from '../../redux/InviteCode/selectors.js';
 import {
   createComments,
+  deleteComments,
   getComments,
 } from '../../redux/Comments/operations.js';
 
 import { selectAttachID } from '../../redux/Attach/selectors';
 import { selectComments } from '../../redux/Comments/selectors.js';
+import { DeleteTaskModal } from 'components/DeleteTaskModal/DeleteTaskModal.jsx';
 export const ProjectPage = () => {
   const [userId] = useState(localStorage.getItem('userID'));
   const [modal, setModal] = useState(false);
@@ -50,6 +50,8 @@ export const ProjectPage = () => {
   const [userRole, setUserRole] = useState('');
   const attacmID = useSelector(selectAttachID);
   const userComments = useSelector(selectComments);
+  const [taskDeleteModal, setTaskDeleteModal] = useState();
+  const [deleteTaskId, setDeleteTaskId] = useState(null);
 
   const taskWindowHandle = useMemo(() => {
     return projectTask => {
@@ -76,7 +78,7 @@ export const ProjectPage = () => {
     }
   }, [userId, project]);
 
-  const handleCloseTaskModal = () => {
+  const handleCloseTaskModal = task_id => {
     if (modal) {
       setModal(false);
     } else {
@@ -132,14 +134,33 @@ export const ProjectPage = () => {
     };
     dispatch(createComments(userData));
   };
+  const handleDeleteTask = () => {
+    deleteTaskId && dispatch(deleteOneTask(deleteTaskId));
+    setTaskDeleteModal(false);
+    window.location.reload();
+  };
+  const handleCloseDeleteTask = task_id => {
+    if (taskDeleteModal) {
+      setTaskDeleteModal(false);
+    } else {
+      setTaskDeleteModal(true);
+    }
+    setDeleteTaskId(task_id);
+  };
 
-  console.log(userRole);
   const taskElements =
     allTask &&
     allTask.map(taskMap => (
       <TaskListItem key={taskMap._id}>
+        <DeleteTaskBtn
+          onClick={() => {
+            handleCloseDeleteTask(taskMap._id);
+          }}
+        >
+          X
+        </DeleteTaskBtn>
         <button
-          style={{ width: '100%', padding: '10px 0' }}
+          style={{ width: '90%', padding: '10px 0' }}
           onClick={() => taskWindowHandle(taskMap)}
         >
           {taskMap.name.toUpperCase()}
@@ -149,6 +170,17 @@ export const ProjectPage = () => {
 
   const handleGetAttachm = data => {
     dispatch(getAttach(data));
+  };
+
+  const handleChangeStatus = (userData, task_id) => {
+    dispatch(updateOneTask({ userData, task_id }));
+  };
+  const handleChangeLoggedTime = (userData, task_id) => {
+    dispatch(updateOneTask({ userData, task_id }));
+  };
+
+  const handleDeleteComment = data => {
+    dispatch(deleteComments(data));
   };
 
   return (
@@ -168,13 +200,22 @@ export const ProjectPage = () => {
           taskEl={taskElements}
           createTaskModal={handleCloseTaskModal}
         />
+        {taskDeleteModal && (
+          <DeleteTaskModal
+            deleteTask={handleDeleteTask}
+            onClose={handleCloseDeleteTask}
+          />
+        )}
 
         {taskStatus && (
           <TaskWindow
+            status={handleChangeStatus}
             closeTaskBtn={handleCloseTask}
             // openImg={handleOpenImg}
+            deleteUserComment={handleDeleteComment}
             attach={handleGetAttachm}
             userComments={userComments}
+            loggedTime={handleChangeLoggedTime}
             commentSubmit={handleSubmiComment}
             role={userRole}
             task={userTask}

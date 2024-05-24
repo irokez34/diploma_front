@@ -62,13 +62,15 @@ export const deleteComments = createAsyncThunk(
   'comments/delete',
   async (comment_id, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.delete(`/api/comments/${comment_id}`, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `${token}`,
         },
       });
       console.log(response);
-      return response;
+      return response.data;
     } catch (error) {
       console.log(error);
       return error;

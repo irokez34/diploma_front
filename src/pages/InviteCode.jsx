@@ -4,6 +4,7 @@ import {
   ChooseContainer,
   CloseWindowBtn,
   Container,
+  DeleteProjectBtn,
   HelloH2,
   IntiveCodeContainer,
   InviteCodeBtn,
@@ -17,15 +18,17 @@ import {
 } from './InviteCode.styled';
 import {
   createNewProject,
+  deleteOneProject,
   getAllProjects,
 } from '../redux/Projects/operations.js';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AddProjectModal } from '../components/AddProjectModal/AddProjectModal.jsx';
 import { selectProjects } from '../redux/Projects/selectors.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { accpetInviteCode } from '../redux/InviteCode/operations.js';
 import { selectProjectId } from '../redux/InviteCode/selectors.js';
+import { DeleteProjectModal } from 'components/DeleteProjectModal/DeleteProjectModal';
 // import { selectToken } from '../redux/User/selectos';
 
 export const InviteCodePage = () => {
@@ -34,9 +37,10 @@ export const InviteCodePage = () => {
   const [code, setCode] = useState('');
   const [modal, setModal] = useState(false);
   const projectId = useSelector(selectProjectId);
-
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteProjectId, setDeleteProjectId] = useState(false);
   // const selectTokenUser = useSelector(selectToken);
-  console.log(projectId);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -87,14 +91,40 @@ export const InviteCodePage = () => {
     }
   };
 
+  const handleOpenDeleteModal = projectID => {
+    if (deleteModal) {
+      setDeleteModal(false);
+    } else {
+      setDeleteModal(true);
+    }
+    setDeleteProjectId(projectID);
+  };
+  const handleDeleteProject = () => {
+    deleteProjectId && dispatch(deleteOneProject(deleteProjectId));
+    setDeleteModal(false);
+    window.location.reload();
+  };
   const projectListItem =
     allProjects &&
     allProjects.map(el => (
-      <Link to={`/diploma_front/project/${el._id}`} key={el._id}>
-        <ProjectListItem>
-          <ProjectBtn>{el.name.toUpperCase()}</ProjectBtn>
-        </ProjectListItem>
-      </Link>
+      // <Link to={`/diploma_front/project/${el._id}`} key={el._id}>
+      <ProjectListItem>
+        <ProjectBtn
+          onClick={() => {
+            navigate(`/diploma_front/project/${el._id}`);
+          }}
+        >
+          {el.name.toUpperCase()}
+        </ProjectBtn>
+        <DeleteProjectBtn
+          onClick={() => {
+            handleOpenDeleteModal(el._id);
+          }}
+        >
+          X
+        </DeleteProjectBtn>
+      </ProjectListItem>
+      // </Link>
     ));
 
   const handleSignOut = () => {
@@ -131,7 +161,11 @@ export const InviteCodePage = () => {
             onChange={e => setCode(e.target.value)}
           ></InviteCodeInput>
           <InviteCodeBtn
-            onClick={() => {
+            onClick={e => {
+              if (!e.target.value) {
+                alert('Це поле не може бути пустим!');
+                return;
+              }
               handleAcceptCode(code);
               projectId && navigate(`/diploma_front/project/${projectId}`);
             }}
@@ -139,6 +173,12 @@ export const InviteCodePage = () => {
             {'ENTER'}
           </InviteCodeBtn>
         </IntiveCodeContainer>
+      )}
+      {deleteModal && (
+        <DeleteProjectModal
+          onClose={handleOpenDeleteModal}
+          deleteProject={handleDeleteProject}
+        />
       )}
       {projectWindow && (
         <ProjectsContainer>

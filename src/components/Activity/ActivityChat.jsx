@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   CommentContainer,
+  DeleteCommentBtn,
   MediaBtn,
   TaskActivity,
   TaskActivityHead,
@@ -19,19 +20,12 @@ export const ActivityChat = ({
   locked,
   getAttachOnclick,
   sendAttacmh,
+  deleteComment,
 }) => {
   const [userComment, setUserComment] = useState('');
   const [imgModal, setImgModal] = useState(false);
-  // const [FileChoose, setFileChoose] = useState(new Form);
-  // const handleFileChange = e => {
-  //   if (!e.target.files[0]) {
-  //     return;
-  //   }
-  //   const file = e.target.files;
-  //   const formdata = new FormData();
-  //   file && formdata.append('file', file[0]);
-  //   setFileChoose(formdata);
-  // };
+  const [deleComment, setDeleComment] = useState(false);
+  const [commentId, setCommentId] = useState(null);
   const closeModal = () => {
     if (imgModal) {
       setImgModal(false);
@@ -42,10 +36,17 @@ export const ActivityChat = ({
 
   const handleSubmit = () => {
     submit(userComment);
-    // sendAttacmh(FileChoose);
     setUserComment('');
-    // setFileChoose('');
   };
+
+  // const handleCloseModal = comment_id => {
+  //   if (taskDeleteModal) {
+  //     setDeleComment(false);
+  //   } else {
+  //     setDeleComment(true);
+  //   }
+  //   setDeleteTaskId(comment_id);
+  // };
 
   const comment =
     comments &&
@@ -57,6 +58,9 @@ export const ActivityChat = ({
         </span>
         <CommentContainer>
           {com.data}
+          <DeleteCommentBtn>
+            X {/* handleCloseModal(com._id) */}
+          </DeleteCommentBtn>
           {com.attachments.length > 0 && (
             <MediaBtn
               onClick={() => {

@@ -44,10 +44,11 @@ const TaskListUl = styled.ul`
 `;
 const TaskListItem = styled.li`
   display: flex;
+  position: relative;
   justify-content: center;
   background-color: white;
   color: black;
-  width: 275px;
+  min-width: 275px;
 `;
 const TaskListContainer = styled.div`
   display: flex;
