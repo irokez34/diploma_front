@@ -14,7 +14,6 @@ const InviteCodeSlice = createSlice({
     builder
       .addCase(API.generationInviteCode.pending, (state, action) => {})
       .addCase(API.generationInviteCode.fulfilled, (state, action) => {
-      
         state.userType = action.payload.type;
         state.code = action.payload.code;
       })
@@ -23,7 +22,8 @@ const InviteCodeSlice = createSlice({
       })
       .addCase(API.accpetInviteCode.pending, (state, action) => {})
       .addCase(API.accpetInviteCode.fulfilled, (state, action) => {
-          
+        console.log(action.payload);
+        state.projectId = action.payload.project_id;
         // console.log(' PAYLOAD: ', action.payload);
       })
       .addCase(API.accpetInviteCode.rejected, (state, action) => {

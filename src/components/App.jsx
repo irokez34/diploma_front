@@ -31,7 +31,8 @@ export const App = () => {
           />
 
           <Route
-            path="invite"
+            // path="invite"
+            index
             element={
               <PrivatRoute>
                 <InviteCodePage />
@@ -54,6 +55,14 @@ export const App = () => {
               </PrivatRoute>
             }
           />
+          <Route
+            path="*"
+            element={
+              <h1 style={{ position: 'absolute', top: '45%', left: '45%' }}>
+                {'Error Page'}
+              </h1>
+            }
+          ></Route>
         </Route>
       </Routes>
     </Router>

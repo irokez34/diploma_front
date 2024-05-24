@@ -53,7 +53,7 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
   };
 
   const handleBack = () => {
-    navigate('/diploma_front/invite');
+    navigate('/diploma_front/');
   };
 
   return (
@@ -109,7 +109,7 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
       )}
       <WrapperDiv>
         <NavButton onClick={history}>Get History</NavButton> {/* GET HISTORY */}
-        <NavButton disabled={role !== 'owner'}>End Project</NavButton>/
+        <NavButton disabled={role !== 'owner'}>End Project</NavButton>
         {/* modalwindow проверка нажатия */}
         {/* END PROJECT */}
         {/* <NavButton disabled={role !== 'owner'}>X</NavButton> */}

@@ -38,7 +38,7 @@ export const accpetInviteCode = createAsyncThunk(
       
         params: { code },
       });
-      console.log(response);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(API);

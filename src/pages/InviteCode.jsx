@@ -25,6 +25,7 @@ import { AddProjectModal } from '../components/AddProjectModal/AddProjectModal.j
 import { selectProjects } from '../redux/Projects/selectors.js';
 import { Link, useNavigate } from 'react-router-dom';
 import { accpetInviteCode } from '../redux/InviteCode/operations.js';
+import { selectProjectId } from '../redux/InviteCode/selectors.js';
 // import { selectToken } from '../redux/User/selectos';
 
 export const InviteCodePage = () => {
@@ -32,8 +33,10 @@ export const InviteCodePage = () => {
   const [inviteCodeWindow, setInviteCodeWindow] = useState(false);
   const [code, setCode] = useState('');
   const [modal, setModal] = useState(false);
-  // const selectTokenUser = useSelector(selectToken);
+  const projectId = useSelector(selectProjectId);
 
+  // const selectTokenUser = useSelector(selectToken);
+  console.log(projectId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -100,10 +103,11 @@ export const InviteCodePage = () => {
     navigate('/diploma_front/auth/login');
     window.location.reload();
   };
-  const handleAcceptCode = () => {
-    console.log(code);
-    dispatch(accpetInviteCode(code));
-   
+  const handleAcceptCode = inviteCode => {
+    dispatch(accpetInviteCode(inviteCode));
+    // .then(() => {
+    //   projectID && navigate(`/diploma_front/project/${projectID}`);
+    // });
   };
 
   return (
@@ -126,7 +130,14 @@ export const InviteCodePage = () => {
             value={code}
             onChange={e => setCode(e.target.value)}
           ></InviteCodeInput>
-          <InviteCodeBtn onClick={handleAcceptCode}>{'ENTER'}</InviteCodeBtn>
+          <InviteCodeBtn
+            onClick={() => {
+              handleAcceptCode(code);
+              projectId && navigate(`/diploma_front/project/${projectId}`);
+            }}
+          >
+            {'ENTER'}
+          </InviteCodeBtn>
         </IntiveCodeContainer>
       )}
       {projectWindow && (

@@ -13,7 +13,7 @@ export const SignUpPage = () => {
       const resultAction = await dispatch(registerUser(body));
       unwrapResult(resultAction);
       alert('Welcome');
-      navigate('/diploma_front/invite');
+      navigate('/diploma_front/');
     } catch (error) {
       console.error('Registration failed:', error);
       alert('Неправильні данні');
