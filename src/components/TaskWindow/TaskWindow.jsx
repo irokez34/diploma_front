@@ -29,6 +29,7 @@ const TaskWindow = ({
   userComments,
   closeTaskBtn,
   attach,
+  editComment,
   deleteUserComment,
   status,
   loggedTime,
@@ -84,13 +85,15 @@ const TaskWindow = ({
             accept=".jpg, .jpeg, .png"
             disabled={task && task.locked}
           />
-          <TaskDescription>{'Description'}</TaskDescription>
+          <TaskDescription>{'Опис'}</TaskDescription>
           <TaskDescriptionSpan>{task && task.description}</TaskDescriptionSpan>
         </div>
         <NotificationMessage />
         <ActivityChat
           deleteComment={deleteUserComment}
           locked={task && task.locked}
+          userRole={role}
+          editUserCom={editComment}
           sendAttacmh={sendUserAttach}
           attachm={attach}
           submit={commentSubmit}
@@ -106,7 +109,7 @@ const TaskWindow = ({
           }}
           disabled={role === 'worker' || (task && task.locked)}
         >
-          Close Task
+          Закрити Завдання
         </TaskLockedBtn>
         <TaskDropDown>
           <SeletTask
@@ -114,23 +117,23 @@ const TaskWindow = ({
             onChange={handleStatus}
             value={task && task.status}
           >
-            <OptionTask value="to_do">{'To Do'}</OptionTask>
-            <OptionTask value="in_progress">{'In Progress'}</OptionTask>
-            <OptionTask value="done">{'Done'}</OptionTask>
+            <OptionTask value="to_do">{'Треба зробити'}</OptionTask>
+            <OptionTask value="in_progress">{'У процесі'}</OptionTask>
+            <OptionTask value="done">{'Виконано'}</OptionTask>
           </SeletTask>
         </TaskDropDown>
         <TaskDetailsListContainer>
-          <TaskDetailsP>{'Details'}</TaskDetailsP>
+          <TaskDetailsP>{'Деталі'}</TaskDetailsP>
           <TaskDetailsUl>
             <TaskDetailsLi>
-              {'Original estimate'}
+              {'Час на виконання'}
               {/* owner */}
               <TaskDetailsSpan>{`${
                 task && task.tracking_time
               } h`}</TaskDetailsSpan>
             </TaskDetailsLi>
             <TaskDetailsLi>
-              {'Logged Time'}
+              {'Час витраченно'}
               {/* worker */}
               <TaskDetailsInput
                 type="number"
@@ -146,13 +149,13 @@ const TaskWindow = ({
               ></TaskDetailsInput>
             </TaskDetailsLi>
             <TaskDetailsLi>
-              {'Start time'}
+              {'Початок робіт'}
               <TaskDetailsSpan>
                 {converTime(task && task.creation_time)}
               </TaskDetailsSpan>
             </TaskDetailsLi>
             <TaskDetailsLi>
-              {'End time'}
+              {'Кінець робіт'}
               <TaskDetailsSpan>
                 {converTime(task && task.lock_time)}
               </TaskDetailsSpan>

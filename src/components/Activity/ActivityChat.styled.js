@@ -41,7 +41,7 @@ const CommentContainer = styled.span`
   border-radius: 5px;
   position: relative;
   flex-wrap: wrap; /* Allow wrapping to the next line */
-  width: 250px; /* Maximum width before wrapping */
+  max-width: 250px; /* Maximum width before wrapping */
   overflow-wrap: break-word; /* Break words if necessary */
 `;
 const DeleteCommentBtn = styled.button`
@@ -51,6 +51,24 @@ const DeleteCommentBtn = styled.button`
   font-size: 13px;
   top: 1%;
   right: 0.5%;
+  &:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+`;
+const EditCommentBtn = styled.button`
+  background-color: blue;
+  color: white;
+  font-size: 13px;
+  top: 1%;
+  right: 5%;
+  max-width: 100px;
+  &:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 `;
 const MediaBtn = styled.button`
   background-color: #b1b1b1;
@@ -63,6 +81,7 @@ export {
   MediaBtn,
   TaskActivityHead,
   TaskActivityInput,
+  EditCommentBtn,
   CommentContainer,
   DeleteCommentBtn,
   TaskChatItem,

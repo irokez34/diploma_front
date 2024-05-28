@@ -126,3 +126,27 @@ export const deleteOneProject = createAsyncThunk(
     }
   }
 );
+
+export const closeProject = createAsyncThunk(
+  'project/close',
+  async (project_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(
+        `/api/projects/${project_id}/close`,
+        null,
+        {
+          headers: {
+            Authorization: `${token.toString()}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+);

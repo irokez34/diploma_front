@@ -7,16 +7,19 @@ import {
 } from './TaskList.styled';
 // import { ModalContext } from 'context';
 
-const TaskList = ({ createTaskModal, taskEl, role }) => {
-  console.log(role);
+const TaskList = ({ createTaskModal, taskEl, role, projectStatus }) => {
   return (
     <TaskContainer>
       <TaskListContainer>
-        <CreateTaskButton onClick={createTaskModal} disabled={role !== 'owner'}>
-          + CREATE TASK
+        <CreateTaskButton onClick={createTaskModal} disabled={role !== 'owner' || projectStatus}>
+          + Створити Завдання
         </CreateTaskButton>
 
-        <TaskListUl>{taskEl}</TaskListUl>
+        {taskEl && taskEl.length > 0 ? (
+          <TaskListUl>{taskEl}</TaskListUl>
+        ) : (
+          <h2>Завдань наразі немає</h2>
+        )}
       </TaskListContainer>
 
       {/*//userAttach={sendAttach} */}

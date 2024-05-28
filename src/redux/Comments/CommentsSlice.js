@@ -40,6 +40,21 @@ const commentSlice = createSlice({
       })
       .addCase(API.deleteComments.rejected, (state, action) => {
         console.log(action.payload);
+      })
+      .addCase(API.editComments.pending, handlePending)
+      .addCase(API.editComments.fulfilled, (state, { payload }) => {
+        const index = state.commentData.findIndex(
+          comment => comment._id === payload._id
+        );
+
+        // Если комментарий найден, заменить его новым значением
+        if (index !== -1) {
+          state.commentData[index] = payload;
+        }
+        // console.log(payload);
+      })
+      .addCase(API.editComments.rejected, (state, action) => {
+        console.log(action);
       });
   },
 });

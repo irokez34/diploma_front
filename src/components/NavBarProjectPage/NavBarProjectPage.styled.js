@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const NavContainer = styled.div`
   width: 100%;
@@ -29,14 +29,55 @@ const NavButton = styled.button`
     transform: scale(0.95);
   }
   &:disabled {
-    opacity: 0.7; /* Уменьшаем прозрачность */
-    cursor: not-allowed; /* Изменяем курсор */
-    background-color: #cccccc; /* Цвет фона для недоступной кнопки */
-    box-shadow: none; /* Убираем тень */
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #cccccc;
+    box-shadow: none;
   }
 `;
 
 const NavP = styled.p``;
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 5px ;
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px ;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px ;
+  }
+`;
+const InviteBtn = styled.button`
+  padding: 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #8f8f8f;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.5s ease, transform 0.3s ease,
+    box-shadow 0.5s ease;
+
+  &:hover {
+    background-color: #6f6f6f;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #cccccc;
+    box-shadow: none;
+  }
+`;
 
 const WrapperDiv = styled.div`
   display: flex;
@@ -45,4 +86,4 @@ const WrapperDiv = styled.div`
   align-items: center;
 `;
 
-export { NavContainer, NavButton, NavP, WrapperDiv };
+export { NavContainer, NavButton, NavP, WrapperDiv, InviteBtn };

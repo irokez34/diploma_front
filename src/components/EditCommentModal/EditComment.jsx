@@ -1,23 +1,20 @@
 import { useEffect, useState } from 'react';
+
 import {
+  Info,
+  Overlay,
+  Modal,
   ButtonClose,
   FormCreateProject,
-  Info,
+  ProjectBtnSave,
   InfoContainer,
   InputField,
-  Modal,
-  Overlay,
-  ProjectBtnSave,
-} from './TaskModal.styled';
+} from './EditComment.styled.js';
 
-export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
-  const [data, setData] = useState({
-    attachments: [],
-    description: '',
-    name: '',
-    priority: 1,
-    project_id: `${projectId}`,
-    tracking_time: null,
+export const EditComment = ({ onClose, editComment, value, attachm }) => {
+  const [userData, setUserData] = useState({
+    data: `${value}`,
+    attachments: attachm ? attachm : [],
   });
   useEffect(() => {
     const handleKeyDown = e => {
@@ -31,23 +28,13 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
     };
   }, [onClose]);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!data.name || !data.description) {
-      alert('fill required fields');
+  const handleFileChange = e => {
+    if (!e.target.files[0]) {
       return;
     }
-
-    createTask(data);
+    const file = e.target.files;
+    const formdata = new FormData();
+    file && formdata.append('file', file[0]);
   };
 
   return (
@@ -68,31 +55,28 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
           <InfoContainer>
             <FormCreateProject>
               <InputField
-                type="text"
-                name="name"
-                placeholder="Назва Завдання"
-                value={data.name}
-                onChange={handleChange}
-                disabled={userRole !== 'owner'}
+                type="file"
+                onChange={handleFileChange}
+                accept=".jpg, .jpeg, .png"
               />
               <InputField
-                type="text"
-                name="description"
-                placeholder="Опис Завдання"
-                value={data.description}
-                onChange={handleChange}
-                disabled={userRole !== 'owner'}
+                as="textarea"
+                rows="5"
+                value={userData.data}
+                onChange={e => {
+                  setUserData({ ...userData, data: e.target.value });
+                }}
+                placeholder={value}
               />
-              <InputField
-                type="number"
-                name="tracking_time"
-                placeholder="Час Виконання Завдання"
-                value={data.tracking_time}
-                onChange={handleChange}
-                disabled={userRole !== 'owner'}
-              />
-
-              <ProjectBtnSave onClick={handleSubmit}>{'Зберігти'}</ProjectBtnSave>
+              <ProjectBtnSave
+                onClick={e => {
+                  editComment(userData);
+                  e.preventDefault();
+                  onClose();
+                }}
+              >
+                {'SAVE'}
+              </ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>
         </Info>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   CommentContainer,
   DeleteCommentBtn,
+  EditCommentBtn,
   MediaBtn,
   TaskActivity,
   TaskActivityHead,
@@ -13,6 +14,7 @@ import {
 import { TaskSubmitBtn } from 'components/TaskWindow/TaskWindow.styled';
 import { ImgModal } from 'components/ModalImg/ModalImg';
 import { DeleteCommentModal } from 'components/DeleteComment/DeleteCommentModal';
+import { EditComment } from 'components/EditCommentModal/EditComment';
 
 export const ActivityChat = ({
   comments,
@@ -20,13 +22,16 @@ export const ActivityChat = ({
   time,
   locked,
   getAttachOnclick,
-  sendAttacmh,
+  userRole,
+  editUserCom,
   deleteComment,
 }) => {
   const [userComment, setUserComment] = useState('');
   const [imgModal, setImgModal] = useState(false);
   const [deleComment, setDeleComment] = useState(false);
   const [commentId, setCommentId] = useState(null);
+  const [editComment, setEditComment] = useState(false);
+  const [commentData, setCommentData] = useState('');
   const closeModal = () => {
     if (imgModal) {
       setImgModal(false);
@@ -49,6 +54,22 @@ export const ActivityChat = ({
     setCommentId(comment_id);
   };
 
+  const handleEditCommentModal = (comment_id, comdata) => {
+    if (editComment) {
+      setEditComment(false);
+    } else {
+      setEditComment(true);
+    }
+    setCommentId(comment_id);
+    setCommentData(comdata);
+  };
+
+  const handleEditComment = data => {
+    // console.log({ data, comment_id: commentId });
+    editUserCom({ data, comment_id: commentId });
+  };
+  console.log(userRole);
+
   const comment =
     comments &&
     comments.map(com => (
@@ -63,8 +84,9 @@ export const ActivityChat = ({
             onClick={() => {
               handleCloseModal(com._id);
             }}
+            disabled={locked}
           >
-            X {/* handleCloseModal(com._id) */}
+            X
           </DeleteCommentBtn>
           {com.attachments.length > 0 && (
             <MediaBtn
@@ -73,18 +95,26 @@ export const ActivityChat = ({
                 setImgModal(true);
               }}
             >
-              {'Media'}
+              {'Медія'}
             </MediaBtn>
           )}
           {imgModal && <ImgModal onClose={closeModal} />}
         </CommentContainer>
+        <EditCommentBtn
+          onClick={() => {
+            handleEditCommentModal(com._id, com.data);
+          }}
+          disabled={locked}
+        >
+          Редагування
+        </EditCommentBtn>
       </TaskChatItem>
     ));
 
   return (
     <TaskActivity>
       {/* <TaskInput type="file" onChange={handleFileChange} /> */}
-      <TaskActivityHead>{'Activity'}</TaskActivityHead>
+      <TaskActivityHead>{'Коментарі'}</TaskActivityHead>
       <TaskChat>
         <TaskChatList>{comment}</TaskChatList>
         <TaskActivityInput
@@ -97,13 +127,20 @@ export const ActivityChat = ({
           disabled={locked}
         />
         <TaskSubmitBtn onClick={handleSubmit} disabled={locked}>
-          {'Submit'}
+          {'Відправити'}
         </TaskSubmitBtn>
       </TaskChat>
       {deleComment && (
         <DeleteCommentModal
           onClose={handleCloseModal}
           deleteComment={() => commentId && deleteComment(commentId)}
+        />
+      )}
+      {editComment && (
+        <EditComment
+          onClose={handleEditCommentModal}
+          editComment={handleEditComment}
+          value={commentData}
         />
       )}
     </TaskActivity>

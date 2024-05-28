@@ -46,11 +46,18 @@ export const createComments = createAsyncThunk(
 
 export const editComments = createAsyncThunk(
   'comments/edit',
-  async (data, comment_id, { rejectWithValue }) => {
+  async ({ data, comment_id }, API) => {
+    console.log({data}, comment_id);
     try {
-      const response = await axios.put(`/api/comments/${comment_id}`, data);
-      console.log(response);
-      return response;
+      const token = localStorage.getItem('token');
+      const response = await axios.put(`/api/comments/${comment_id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       console.log(error);
       return error;
@@ -77,3 +84,4 @@ export const deleteComments = createAsyncThunk(
     }
   }
 );
+  

@@ -2,12 +2,13 @@ import NavBar from '../../components/NavBarProjectPage/NavBarProjectPage.jsx';
 import TaskList from '../../components/TaskList/TaskList';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
+  closeProject,
   getHistoryProject,
   getOneProject,
 } from '../../redux/Projects/operations';
-import { selectProject } from '../../redux/Projects/selectors.js';
+import { selectProject, selectStatus } from '../../redux/Projects/selectors.js';
 import {
   closeTask,
   createNewTask,
@@ -23,12 +24,17 @@ import { getAttach, sendAttach } from '../../redux/Attach/operations.js';
 // import { selectUserAttachm } from '../../redux/Attach/selectors.js';
 import TaskWindow from 'components/TaskWindow/TaskWindow.jsx';
 import { TaskListItem } from 'components/TaskList/TaskList.styled.js';
-import { DeleteTaskBtn, ProjectPageContainer } from './ProjectPage.styled.js';
+import {
+  DeleteTaskBtn,
+  ListItemBtn,
+  ProjectPageContainer,
+} from './ProjectPage.styled.js';
 import { generationInviteCode } from '../../redux/InviteCode/operations.js';
 import { selectCode, selectType } from '../../redux/InviteCode/selectors.js';
 import {
   createComments,
   deleteComments,
+  editComments,
   getComments,
 } from '../../redux/Comments/operations.js';
 
@@ -52,7 +58,9 @@ export const ProjectPage = () => {
   const userComments = useSelector(selectComments);
   const [taskDeleteModal, setTaskDeleteModal] = useState();
   const [deleteTaskId, setDeleteTaskId] = useState(null);
+  const navigate = useNavigate();
 
+  console.log(project && project.locked);
   const taskWindowHandle = useMemo(() => {
     return projectTask => {
       setTaskStatus(true);
@@ -159,12 +167,13 @@ export const ProjectPage = () => {
         >
           X
         </DeleteTaskBtn>
-        <button
+        <ListItemBtn
           style={{ width: '90%', padding: '10px 0' }}
           onClick={() => taskWindowHandle(taskMap)}
+          disabled={project && project.locked}
         >
           {taskMap.name.toUpperCase()}
-        </button>
+        </ListItemBtn>
       </TaskListItem>
     ));
 
@@ -184,6 +193,16 @@ export const ProjectPage = () => {
     window.location.reload();
   };
 
+  const handleEditComment = data => {
+    // console.log(data);
+    dispatch(editComments(data));
+    // window.location.reload();
+  };
+
+  const handleCloseProject = () => {
+    dispatch(closeProject(project_id));
+    navigate('/diploma_front/');
+  };
   return (
     <>
       <NavBar
@@ -192,10 +211,13 @@ export const ProjectPage = () => {
         code={selectorinviteCode}
         inviteCode={InviteCodeGeneration}
         project={project}
+        closeProject={handleCloseProject}
         role={userRole}
+        projectStatus={project && project && project.locked}
       />
       <ProjectPageContainer>
         <TaskList
+          projectStatus={project && project && project.locked}
           tasks={allTask}
           role={userRole}
           taskEl={taskElements}
@@ -217,6 +239,7 @@ export const ProjectPage = () => {
             attach={handleGetAttachm}
             userComments={userComments}
             loggedTime={handleChangeLoggedTime}
+            editComment={handleEditComment}
             commentSubmit={handleSubmiComment}
             role={userRole}
             task={userTask}

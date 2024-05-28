@@ -7,6 +7,7 @@ const TaskContainer = styled.div`
 `;
 
 const CreateTaskButton = styled.button`
+  margin-bottom: 15px;
   width: 100%;
   background-color: #d9d9d9;
   padding: 15px 0;

@@ -1,7 +1,8 @@
 // import { NavContainer, NavButton, NavP } from './NavBarProjectPage.styled.js';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
+  InviteBtn,
   NavButton,
   NavContainer,
   NavP,
@@ -12,24 +13,35 @@ import { useDispatch } from 'react-redux';
 import { updateProject } from '../../redux/Projects/operations';
 // import { NotificationMessage } from 'components/Notification-Msg/Notification';
 import { useNavigate } from 'react-router-dom';
+import { CodeModal } from 'components/ModalGenCode/CodeModal';
 
-const NavBar = ({ project, inviteCode, code, role, type, history }) => {
+const NavBar = ({
+  project,
+  inviteCode,
+  code,
+  role,
+  history,
+  projectStatus,
+  closeProject,
+}) => {
+  
   const dispatch = useDispatch();
   // const { state } = useLocation();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState();
-  const [workerCode, setWorkerCode] = useState('');
-  const [clientCode, setClientCode] = useState('');
-  // const [messageWorker, setMessageWorker] = useState(false);
-  // const [messageClient, setMessageClient] = useState(false);
-  useEffect(() => {
-    if (type === 'worker') {
-      setWorkerCode(code);
-    } else if (type === 'client') {
-      setClientCode(code);
-    }
-  }, [type, code]);
+  // const [workerCode, setWorkerCode] = useState('');
 
+  // const [clientCode, setClientCode] = useState('');
+  const [codeModal, setCodeModal] = useState('');
+
+  // useEffect(() => {
+  //   if (type === 'worker') {
+  //     setWorkerCode(code);
+  //   } else if (type === 'client') {
+  //     setClientCode(code);
+  //   }
+  // }, [type, code]);
+  console.log(project);
   const openInfoModal = () => {
     if (openModal) {
       setOpenModal(false);
@@ -37,6 +49,14 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
       setOpenModal(true);
     }
   };
+  const openCodeModal = () => {
+    if (codeModal) {
+      setCodeModal(false);
+    } else {
+      setCodeModal(true);
+    }
+  };
+
   const handleUpdate = data => {
     const userData = { ...data, workers: [], clients: [] };
 
@@ -46,12 +66,13 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
   };
 
   const handleInviteCode = e => {
+    console.log(e.target.value);
     inviteCode(e.target.value);
-    if (e.target.value === 'worker') {
-      // setMessageWorker(true);
-    } else if (e.target.value === 'client') ;
+    // if (e.target.value === 'worker') {
+    //   // setMessageWorker(true);
+    // } else if (e.target.value === 'client');
   };
-// setMessageClient(true)
+  // setMessageClient(true)
   const handleBack = () => {
     navigate('/diploma_front/');
   };
@@ -62,8 +83,8 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
         <NavButton onClick={handleBack}> {'<'} </NavButton>
         <NavP>{project && project.name.toUpperCase()}</NavP>
         {/* Project Name */}
-        <NavButton onClick={openInfoModal} disabled={role !== 'owner'}>
-          {'INFO'}
+        <NavButton onClick={openInfoModal} disabled={role !== 'owner' || projectStatus}>
+          {'Інформація'}
         </NavButton>
         {/* INFO */}
         <NavP>{project && project.start_time}</NavP> {/* Project Status */}
@@ -76,29 +97,16 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
           gap: '5px',
         }}
       >
-        <div>
-          <NavButton
-            onClick={handleInviteCode}
-            value={'worker'}
-            disabled={role !== 'owner'}
-          >
-            {'Generate Invite Code for worker'}
-          </NavButton>
-
-          {/* <NotificationMessage message={`worker code:${workerCode}`} /> */}
-        </div>
-        <span>{workerCode} </span>
-        <div>
-          <NavButton
-            onClick={handleInviteCode}
-            value={'client'}
-            disabled={role !== 'owner'}
-          >
-            {'Generate Invite Code for client'}
-          </NavButton>
-          <span>{clientCode} </span>
-          {/* <NotificationMessage message={`client code:${clientCode}`} /> */}
-        </div>
+        <InviteBtn onClick={openCodeModal} disabled={role !== 'owner' || projectStatus}>
+          Стоврити Запрошення
+        </InviteBtn>
+        {codeModal && (
+          <CodeModal
+            onClose={openCodeModal}
+            Click={handleInviteCode}
+            getCode={code}
+          />
+        )}
       </div>
 
       {openModal && (
@@ -108,8 +116,11 @@ const NavBar = ({ project, inviteCode, code, role, type, history }) => {
         ></UpdateProjectModal>
       )}
       <WrapperDiv>
-        <NavButton onClick={history}>Get History</NavButton> {/* GET HISTORY */}
-        <NavButton disabled={role !== 'owner'}>End Project</NavButton>
+        <NavButton onClick={history}>Отримати Історію</NavButton>
+        {/* GET HISTORY */}
+        <NavButton disabled={role !== 'owner' || projectStatus} onClick={closeProject}>
+          Закрити проєкт
+        </NavButton>
         {/* modalwindow проверка нажатия */}
         {/* END PROJECT */}
         {/* <NavButton disabled={role !== 'owner'}>X</NavButton> */}
