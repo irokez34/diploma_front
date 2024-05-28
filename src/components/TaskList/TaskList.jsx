@@ -8,6 +8,7 @@ import {
 // import { ModalContext } from 'context';
 
 const TaskList = ({ createTaskModal, taskEl, role }) => {
+  console.log(role);
   return (
     <TaskContainer>
       <TaskListContainer>

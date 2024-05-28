@@ -28,6 +28,13 @@ const CreateTaskButton = styled.button`
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
     transform: scale(1.02);
   }
+  &:disabled {
+    background-color: #f0f0f0;
+    color: #a1a1a1;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
 `;
 
 const TaskListUl = styled.ul`
