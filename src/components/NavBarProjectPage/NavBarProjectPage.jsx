@@ -14,6 +14,7 @@ import { updateProject } from '../../redux/Projects/operations';
 // import { NotificationMessage } from 'components/Notification-Msg/Notification';
 import { useNavigate } from 'react-router-dom';
 import { CodeModal } from 'components/ModalGenCode/CodeModal';
+import { PaymentModal } from 'components/PaymentModal/PaymentModal';
 
 const NavBar = ({
   project,
@@ -23,14 +24,14 @@ const NavBar = ({
   history,
   projectStatus,
   closeProject,
+  // payment
 }) => {
-  
   const dispatch = useDispatch();
   // const { state } = useLocation();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState();
   // const [workerCode, setWorkerCode] = useState('');
-
+  const [payment, setPayment] = useState(false);
   // const [clientCode, setClientCode] = useState('');
   const [codeModal, setCodeModal] = useState('');
 
@@ -77,13 +78,24 @@ const NavBar = ({
     navigate('/diploma_front/');
   };
 
+  const paymentModal = () => {
+    if (payment) {
+      setPayment(false);
+    } else {
+      setPayment(true);
+    }
+  };
+
   return (
     <NavContainer>
       <WrapperDiv>
         <NavButton onClick={handleBack}> {'<'} </NavButton>
         <NavP>{project && project.name.toUpperCase()}</NavP>
         {/* Project Name */}
-        <NavButton onClick={openInfoModal} disabled={role !== 'owner' || projectStatus}>
+        <NavButton
+          onClick={openInfoModal}
+          disabled={role !== 'owner' || projectStatus}
+        >
           {'Інформація'}
         </NavButton>
         {/* INFO */}
@@ -97,7 +109,16 @@ const NavBar = ({
           gap: '5px',
         }}
       >
-        <InviteBtn onClick={openCodeModal} disabled={role !== 'owner' || projectStatus}>
+        {/* payment */}
+        <NavButton onClick={paymentModal}>
+          {role === 'client' ? 'Сплатити' : 'Створити чек'}
+        </NavButton>
+        {payment && <PaymentModal onClose={paymentModal} />}
+
+        <InviteBtn
+          onClick={openCodeModal}
+          disabled={role !== 'owner' || projectStatus}
+        >
           Стоврити Запрошення
         </InviteBtn>
         {codeModal && (
@@ -113,12 +134,15 @@ const NavBar = ({
         <UpdateProjectModal
           onClose={openInfoModal}
           updateProject={handleUpdate}
-        ></UpdateProjectModal>
+        />
       )}
       <WrapperDiv>
         <NavButton onClick={history}>Отримати Історію</NavButton>
         {/* GET HISTORY */}
-        <NavButton disabled={role !== 'owner' || projectStatus} onClick={closeProject}>
+        <NavButton
+          disabled={role !== 'owner' || projectStatus}
+          onClick={closeProject}
+        >
           Закрити проєкт
         </NavButton>
         {/* modalwindow проверка нажатия */}

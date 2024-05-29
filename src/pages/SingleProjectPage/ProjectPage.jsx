@@ -203,6 +203,11 @@ export const ProjectPage = () => {
     dispatch(closeProject(project_id));
     navigate('/diploma_front/');
   };
+
+  // const handlePayment = () => {
+  //   dispatch(getPayment(project_id));
+  // }; //ОТРИМАТИ ЧЕК//
+
   return (
     <>
       <NavBar
@@ -214,6 +219,7 @@ export const ProjectPage = () => {
         closeProject={handleCloseProject}
         role={userRole}
         projectStatus={project && project && project.locked}
+        // peyment={handlePayment} if role === client handlePay else role === owner handlePayment
       />
       <ProjectPageContainer>
         <TaskList
