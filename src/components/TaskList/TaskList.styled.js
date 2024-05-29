@@ -61,7 +61,7 @@ const TaskListItem = styled.li`
 const TaskListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 360px;
+  width: 300px;
 `;
 export {
   TaskListContainer,

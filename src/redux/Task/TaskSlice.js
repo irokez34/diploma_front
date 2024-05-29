@@ -30,7 +30,7 @@ const TaskSlice = createSlice({
       .addCase(API.createNewTask.fulfilled, (state, action) => {
         state.task = action.payload;
         state.tasks.push(action.payload);
-        console.log(action);
+        // console.log(action);
       })
       .addCase(API.createNewTask.rejected, (state, action) => {
         console.log(action);

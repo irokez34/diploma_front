@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const TaskActivityInput = styled.input`
-  width: 300px;
+  width: 250px;
   padding: 10px;
   box-sizing: border-box;
   resize: none; /* Prevent resizing */
@@ -24,7 +24,7 @@ const TaskChatItem = styled.li`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  max-width: 600px;
+  max-width: 250px;
 `;
 
 const TaskChatList = styled.ul`

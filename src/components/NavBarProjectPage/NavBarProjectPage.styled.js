@@ -11,11 +11,13 @@ const NavContainer = styled.div`
   padding: 20px;
 `;
 const NavButton = styled.button`
-  padding: 10px 15px;
+  padding: 10px;
   border-radius: 10px;
   border: 1px transparent;
   background-color: #8f8f8f;
   color: #ffffff;
+  overflow-wrap: break-word;
+  max-width: 120px;
   cursor: pointer;
   transition: background-color 0.5s ease, transform 0.3s ease,
     box-shadow 0.5s ease;
@@ -37,23 +39,12 @@ const NavButton = styled.button`
 `;
 
 const NavP = styled.p``;
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 5px ;
-  }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px ;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 5px ;
-  }
-`;
+
 const InviteBtn = styled.button`
-  padding: 20px;
+  padding: 15px;
   color: white;
+  overflow-wrap: break-word;
+  max-width: 130px;
   border: none;
   border-radius: 5px;
   cursor: pointer;

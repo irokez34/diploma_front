@@ -10,6 +10,8 @@ import {
   TaskDetailsLi,
   TaskDetailsListContainer,
   TaskDetailsP,
+  TaskDetailsPrice,
+  TaskDetailsPriceStatus,
   TaskDetailsSpan,
   TaskDetailsUl,
   TaskDropDown,
@@ -66,6 +68,13 @@ const TaskWindow = ({
       e.target.value > 0 && loggedTime(data, task._id);
     }, 5000);
   };
+  const handlePrice = e => {
+    setTimeout(() => {
+      const data = { ...task, uah_price: e.target.value };
+      e.target.value > 0 && loggedTime(data, task._id);
+    }, 5000);
+  };
+  console.log(task);
 
   return (
     <TaskContainerProject>
@@ -146,7 +155,7 @@ const TaskWindow = ({
                 onChange={handleLoggedTime}
                 // value={task && task.logged_time}
                 // {role === 'owner' || 'client'}
-              ></TaskDetailsInput>
+              />
             </TaskDetailsLi>
             <TaskDetailsLi>
               {'Початок робіт'}
@@ -159,6 +168,19 @@ const TaskWindow = ({
               <TaskDetailsSpan>
                 {converTime(task && task.lock_time)}
               </TaskDetailsSpan>
+            </TaskDetailsLi>
+            <TaskDetailsLi>
+              {'Ціна робіт'}
+              <TaskDetailsPrice
+                type="number"
+                id="number"
+                placeholder={task && `${task.uah_price} грн`}
+                disabled={role !== 'owner' || (task && task.locked)}
+                onChange={handlePrice}
+              />
+            </TaskDetailsLi>
+            <TaskDetailsLi>
+              <TaskDetailsPriceStatus>{task && task.payment_status}</TaskDetailsPriceStatus>
             </TaskDetailsLi>
           </TaskDetailsUl>
         </TaskDetailsListContainer>

@@ -23,8 +23,8 @@ const projectSlice = createSlice({
       })
       .addCase(API.createNewProject.pending, (state, action) => {})
       .addCase(API.createNewProject.fulfilled, (state, action) => {
-        state.project = action.payload.data;
-        state.allProjects.push(action.payload.data);
+        state.project = action.payload;
+        state.allProjects.push(action.payload);
       })
       .addCase(API.createNewProject.rejected, (state, action) => {
         console.log(action, 'REJECTED');

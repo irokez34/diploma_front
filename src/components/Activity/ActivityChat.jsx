@@ -123,7 +123,7 @@ export const ActivityChat = ({
           onChange={e => {
             setUserComment(e.target.value);
           }}
-          value={userComment}
+          value={userComment && userComment}
           disabled={locked}
         />
         <TaskSubmitBtn onClick={handleSubmit} disabled={locked}>

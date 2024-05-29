@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
 const TaskContainerProject = styled.div`
-  min-width: 1000px;
+   width: 900px;
   padding: 20px;
   background-color: #d9d9d9;
   display: flex;
   flex-direction: row;
+  gap: 20px;
   justify-content: space-between;
   min-height: 400px;
+
+  @media (max-width: 1100px) {
+    width: 600px;
+  }
 `;
 const TaskHead = styled.h2`
   font-size: 16px;
@@ -21,7 +26,8 @@ const TaskDescriptionContainer = styled.div`
 `;
 const TaskSpan = styled.span``;
 
-const TaskInput = styled.input``;
+const TaskInput = styled.input`
+`;
 const TaskDescription = styled.p`
   font-size: 18px;
   font-weight: bold;
@@ -34,7 +40,7 @@ const TaskDescriptionSpan = styled.span`
   border-radius: 5px;
   padding: 10px;
   background-color: white;
-  max-width: 700px;
+  max-width: 200px;
 `;
 const Container = styled.div``;
 
@@ -100,11 +106,54 @@ const TaskDetailsP = styled.p`
 const TaskDetailsSpan = styled.span`
   font-size: 14px;
 `;
+const TaskDetailsPriceStatus = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  margin: 10px 0;
+  display: inline-block;
+
+  ${props =>
+    props.status === 'done' &&
+    `
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  `}
+
+  ${props =>
+    props.status === 'in_progress' &&
+    `
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+  `}
+
+  ${props =>
+    props.status === 'unpayed' &&
+    `
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  `}
+`;
 const TaskDetailsInput = styled.input`
   background-color: transparent;
   border-color: transparent;
   width: 50px;
   font-size: 14px;
+`;
+const TaskDetailsPrice = styled.input`
+  background-color: transparent;
+  border-color: transparent;
+  max-width: 130px;
+  font-size: 14px;
+
+  &::placeholder {
+    color: black;
+    font-style: italic; /* пример дополнительного стиля */
+  }
 `;
 
 const TaskDetailsListContainer = styled.div`
@@ -156,8 +205,10 @@ export {
   TaskDetailsContainer,
   TaskDropDown,
   OptionTask,
+  TaskDetailsPriceStatus,
   TaskDetailsSpan,
   TaskStatus,
+  TaskDetailsPrice,
   TaskLockedBtn,
   SeletTask,
   TaskSpan,

@@ -18,6 +18,7 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
     priority: 1,
     project_id: `${projectId}`,
     tracking_time: null,
+    price: null,
   });
   useEffect(() => {
     const handleKeyDown = e => {
@@ -33,7 +34,6 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log(name, value);
     setData({
       ...data,
       [name]: value,
@@ -71,7 +71,7 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
                 type="text"
                 name="name"
                 placeholder="Назва Завдання"
-                value={data.name}
+                value={data.name && data.name}
                 onChange={handleChange}
                 disabled={userRole !== 'owner'}
               />
@@ -79,7 +79,7 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
                 type="text"
                 name="description"
                 placeholder="Опис Завдання"
-                value={data.description}
+                value={data.description && data.description}
                 onChange={handleChange}
                 disabled={userRole !== 'owner'}
               />
@@ -87,12 +87,22 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
                 type="number"
                 name="tracking_time"
                 placeholder="Час Виконання Завдання"
-                value={data.tracking_time}
+                value={data.tracking_time !== null && data.tracking_time}
+                onChange={handleChange}
+                disabled={userRole !== 'owner'}
+              />
+              <InputField
+                type="number"
+                name="price"
+                placeholder="Ціна Завдання"
+                value={data.price !== null && data.price}
                 onChange={handleChange}
                 disabled={userRole !== 'owner'}
               />
 
-              <ProjectBtnSave onClick={handleSubmit}>{'Зберігти'}</ProjectBtnSave>
+              <ProjectBtnSave onClick={handleSubmit}>
+                {'Зберігти'}
+              </ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>
         </Info>

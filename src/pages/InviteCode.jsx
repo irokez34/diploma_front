@@ -108,7 +108,7 @@ export const InviteCodePage = () => {
     allProjects &&
     allProjects.map(el => (
       // <Link to={`/diploma_front/project/${el._id}`} key={el._id}>
-      <ProjectListItem>
+      <ProjectListItem key={el._id}>
         <ProjectBtn
           onClick={() => {
             navigate(`/diploma_front/project/${el._id}`);

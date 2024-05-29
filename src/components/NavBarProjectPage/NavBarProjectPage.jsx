@@ -42,7 +42,6 @@ const NavBar = ({
   //     setClientCode(code);
   //   }
   // }, [type, code]);
-  console.log(project);
   const openInfoModal = () => {
     if (openModal) {
       setOpenModal(false);
@@ -67,7 +66,6 @@ const NavBar = ({
   };
 
   const handleInviteCode = e => {
-    console.log(e.target.value);
     inviteCode(e.target.value);
     // if (e.target.value === 'worker') {
     //   // setMessageWorker(true);

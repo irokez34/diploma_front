@@ -37,7 +37,7 @@ export const createNewProject = createAsyncThunk(
         },
       });
       console.log(response);
-      return response;
+      return response.data;
     } catch (error) {
       console.log(error);
     }

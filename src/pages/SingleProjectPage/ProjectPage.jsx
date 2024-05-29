@@ -60,7 +60,6 @@ export const ProjectPage = () => {
   const [deleteTaskId, setDeleteTaskId] = useState(null);
   const navigate = useNavigate();
 
-  console.log(project && project.locked);
   const taskWindowHandle = useMemo(() => {
     return projectTask => {
       setTaskStatus(true);
@@ -207,7 +206,7 @@ export const ProjectPage = () => {
   // const handlePayment = () => {
   //   dispatch(getPayment(project_id));
   // }; //ОТРИМАТИ ЧЕК//
-
+  console.log(project_id);
   return (
     <>
       <NavBar

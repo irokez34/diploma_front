@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 const ProjectPageContainer = styled.div`
-  display: flex;
-  margin: 30px;
-  gap: 50px;
+    display: flex;
+    margin: 30px 0 0 30px;
+    justify-content: center;
+    gap: 20px;
 `;
 
 const DeleteTaskBtn = styled.button`

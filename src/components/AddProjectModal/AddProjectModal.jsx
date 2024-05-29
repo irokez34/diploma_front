@@ -59,7 +59,7 @@ export const AddProjectModal = ({ onClose, createProject }) => {
                 maxLength={'15'}
                 name="projectName"
                 placeholder="Project Name"
-                value={data.projectName}
+                value={data.projectName && data.projectName}
                 onChange={handleChange}
                 required
               />
@@ -67,7 +67,7 @@ export const AddProjectModal = ({ onClose, createProject }) => {
                 type="text"
                 name="projectDescription"
                 placeholder="Project Description"
-                value={data.projectDescription}
+                value={data.projectDescription && data.projectDescription}
                 onChange={handleChange}
                 required
               />
