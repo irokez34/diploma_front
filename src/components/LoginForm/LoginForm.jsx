@@ -30,7 +30,7 @@ export const LoginForm = ({ login }) => {
   return (
     <Form onSubmit={handleSubmit} autoComplete="off">
       <LabelForm>
-        Username
+        Ім'я Користувача
         <InputForm
           type="text"
           name="username"
@@ -40,7 +40,7 @@ export const LoginForm = ({ login }) => {
         />
       </LabelForm>
       <LabelForm>
-        Password
+        Пароль
         <InputForm
           type="password"
           name="password"
@@ -50,13 +50,13 @@ export const LoginForm = ({ login }) => {
         />
       </LabelForm>
 
-      <BtnForm type="submit">Log In</BtnForm>
+      <BtnForm type="submit">Увійти</BtnForm>
       <BtnForm
         onClick={() => {
           navigate('/diploma_front/auth/register');
         }}
       >
-        Sign Up
+       Сторінка реєстрації
       </BtnForm>
     </Form>
   );

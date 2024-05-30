@@ -63,7 +63,7 @@ export const SignUpForm = ({ signUp }) => {
   return (
     <Form onSubmit={handleSubmit} autoComplete="off">
       <LabelForm>
-        Name
+        Ім'я
         <InputForm
           type="text"
           name="name"
@@ -73,7 +73,7 @@ export const SignUpForm = ({ signUp }) => {
         {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
       </LabelForm>
       <LabelForm>
-        Username
+        Ім'я Користувача
         <InputForm
           type="text"
           name="username"
@@ -83,7 +83,7 @@ export const SignUpForm = ({ signUp }) => {
         {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
       </LabelForm>
       <LabelForm>
-        Password
+        Пароль
         <InputForm
           type="password"
           name="password"
@@ -94,7 +94,7 @@ export const SignUpForm = ({ signUp }) => {
         {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
       </LabelForm>
       <LabelForm>
-        Repeat password
+        Повторіть пароль
         <InputForm
           type="password"
           name="repeatPassword"
@@ -106,14 +106,14 @@ export const SignUpForm = ({ signUp }) => {
           <p style={{ color: 'red' }}>{errors.repeatPassword}</p>
         )}
       </LabelForm>
-      <BtnForm type="submit">Sign Up</BtnForm>
+      <BtnForm type="submit">Реєстрації </BtnForm>
       <BtnForm
         type="button"
         onClick={() => {
           navigate('/diploma_front/auth/login');
         }}
       >
-        Back to Log In
+        Сторінка авторизації
       </BtnForm>
     </Form>
   );

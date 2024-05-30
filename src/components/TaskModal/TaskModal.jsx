@@ -43,7 +43,7 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (!data.name || !data.description) {
-      alert('fill required fields');
+      alert('Заповніть усі поля');
       return;
     }
 
@@ -101,7 +101,7 @@ export const TaskModal = ({ onClose, createTask, projectId, userRole }) => {
               />
 
               <ProjectBtnSave onClick={handleSubmit}>
-                {'Зберігти'}
+                {'Зберегти'}
               </ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>

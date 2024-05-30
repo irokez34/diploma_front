@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   closeProject,
+  createPayment,
   getHistoryProject,
   getOneProject,
 } from '../../redux/Projects/operations';
-import { selectProject, selectStatus } from '../../redux/Projects/selectors.js';
+import { selectProject } from '../../redux/Projects/selectors.js';
 import {
   closeTask,
   createNewTask,
@@ -58,6 +59,7 @@ export const ProjectPage = () => {
   const userComments = useSelector(selectComments);
   const [taskDeleteModal, setTaskDeleteModal] = useState();
   const [deleteTaskId, setDeleteTaskId] = useState(null);
+  // const projectPrice = useSelector(selectPrice);
   const navigate = useNavigate();
 
   const taskWindowHandle = useMemo(() => {
@@ -205,11 +207,23 @@ export const ProjectPage = () => {
 
   // const handlePayment = () => {
   //   dispatch(getPayment(project_id));
-  // }; //ОТРИМАТИ ЧЕК//
-  console.log(project_id);
+  // };
+  //ОТРИМАТИ ЧЕК//
+  // console.log(projectPrice);
+  const handleCreatePayment = () => {
+    // console.log(project_id);
+    dispatch(createPayment(project_id));
+  };
+
+  const handlePayPayment = () => {
+    navigate(`/diploma_front/payment/${project_id}`);
+    // dispatch(payPayment(project_id));
+  };
   return (
     <>
       <NavBar
+        allUserTask={allTask}
+        payPayment={handlePayPayment}
         history={handleGetHistory}
         type={userType}
         code={selectorinviteCode}
@@ -218,6 +232,7 @@ export const ProjectPage = () => {
         closeProject={handleCloseProject}
         role={userRole}
         projectStatus={project && project && project.locked}
+        createPayment={handleCreatePayment}
         // peyment={handlePayment} if role === client handlePay else role === owner handlePayment
       />
       <ProjectPageContainer>

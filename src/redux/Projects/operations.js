@@ -16,7 +16,6 @@ export const getAllProjects = createAsyncThunk(
           Authorization: `${token}`,
         },
       });
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -36,7 +35,6 @@ export const createNewProject = createAsyncThunk(
           Authorization: `${token}`,
         },
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -78,7 +76,6 @@ export const updateProject = createAsyncThunk(
           },
         }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error, rejectWithValue);
@@ -99,7 +96,6 @@ export const getHistoryProject = createAsyncThunk(
         },
         params: { project_id },
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -119,7 +115,6 @@ export const deleteOneProject = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return error;
@@ -142,10 +137,88 @@ export const closeProject = createAsyncThunk(
           },
         }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
+      return error;
+    }
+  }
+);
+
+export const createPayment = createAsyncThunk(
+  'project/payment',
+  async (project_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`/api/projects/create-payment`, null, {
+        headers: {
+          Authorization: `${token.toString()}`,
+          'Content-Type': 'application/json',
+        },
+        params: { project_id },
+      });
+      response.data.price &&
+        alert(`Створенно чек на суму ${response.data.price}`);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
+export const payPayment = createAsyncThunk(
+  'project/pay',
+  async (project_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`/api/projects/pay`, null, {
+        headers: {
+          Authorization: `${token.toString()}`,
+          'Content-Type': 'application/json',
+        },
+        params: { project_id },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
+export const getPayment = createAsyncThunk(
+  'project/getPay',
+  async (project_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`/api/projects/get-payment/`, {
+        headers: {
+          Authorization: `${token}`,
+          'Content-Type': 'application/json',
+        },
+        params: { project_id },
+      });
+
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+export const cancelPayment = createAsyncThunk(
+  'project/cancelPayment',
+  async (project_id, API) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.post('/api/projects/cancel-payment', null, {
+        headers: {
+          Authorization: `${token}`,
+          'Content-Type': 'application/json',
+        },
+        params: { project_id },
+      });
+      return alert('Сплату скасовано');
+    } catch (error) {
       return error;
     }
   }

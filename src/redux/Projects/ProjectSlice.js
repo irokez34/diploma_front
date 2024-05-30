@@ -5,6 +5,9 @@ const initialState = {
   allProjects: null,
   project: null,
   history: null,
+  price: null,
+  paymentPage: false,
+  paymentInfo: null,
 };
 
 const handlePending = state => {};
@@ -69,6 +72,40 @@ const projectSlice = createSlice({
         // state.history = action.payload;
       })
       .addCase(API.closeProject.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(API.createPayment.pending, (state, action) => {})
+      .addCase(API.createPayment.fulfilled, (state, action) => {
+        state.price = action.payload.price;
+        // state.project = action.payload;
+        // state.history = action.payload;
+      })
+      .addCase(API.createPayment.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(API.payPayment.pending, (state, action) => {})
+      .addCase(API.payPayment.fulfilled, (state, action) => {
+        state.paymentPage = true;
+        // state.price = action.payload.price;
+        // state.project = action.payload;
+        // state.history = action.payload;
+      })
+      .addCase(API.payPayment.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(API.getPayment.pending, (state, action) => {})
+      .addCase(API.getPayment.fulfilled, (state, action) => {
+        // state.paymentPage = true;
+        state.paymentInfo = action.payload;
+        // state.project = action.payload;
+        // state.history = action.payload;
+      })
+      .addCase(API.getPayment.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(API.cancelPayment.pending, (state, action) => {})
+      .addCase(API.cancelPayment.fulfilled, (state, action) => {})
+      .addCase(API.cancelPayment.rejected, (state, action) => {
         console.log(action);
       });
   },

@@ -58,7 +58,7 @@ export const AddProjectModal = ({ onClose, createProject }) => {
                 type="text"
                 maxLength={'15'}
                 name="projectName"
-                placeholder="Project Name"
+                placeholder="Назва Проєкту"
                 value={data.projectName && data.projectName}
                 onChange={handleChange}
                 required
@@ -66,7 +66,7 @@ export const AddProjectModal = ({ onClose, createProject }) => {
               <InputField
                 type="text"
                 name="projectDescription"
-                placeholder="Project Description"
+                placeholder="Опис Проєкту"
                 value={data.projectDescription && data.projectDescription}
                 onChange={handleChange}
                 required
@@ -75,13 +75,13 @@ export const AddProjectModal = ({ onClose, createProject }) => {
                 onClick={e => {
                   e.preventDefault();
                   if (!data.projectDescription || !data.projectName) {
-                    alert('fill all fields');
+                    alert('заповніть усі поля');
                     return;
                   }
                   createProject(data.projectName, data.projectDescription);
                 }}
               >
-                {'SAVE'}
+                {'Зберегти'}
               </ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>

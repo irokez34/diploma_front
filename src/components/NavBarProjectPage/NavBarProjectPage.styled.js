@@ -1,15 +1,25 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const NavContainer = styled.div`
   width: 100%;
   height: 84px;
   background-color: #d9d9d9;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
 `;
+
+const Container = styled.div`
+width: 90%;
+display: flex;
+justify-content: space-between;
+flex-direction: row;
+align-items: center;
+gap: 20px;
+`;
+
 const NavButton = styled.button`
   padding: 10px;
   border-radius: 10px;
@@ -77,4 +87,4 @@ const WrapperDiv = styled.div`
   align-items: center;
 `;
 
-export { NavContainer, NavButton, NavP, WrapperDiv, InviteBtn };
+export { NavContainer, NavButton, NavP, Container, WrapperDiv, InviteBtn };

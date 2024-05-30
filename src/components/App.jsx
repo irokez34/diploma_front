@@ -7,8 +7,10 @@ import { SignUpPage } from '../pages/SignUpPage/SignUpPage.jsx';
 import { PrivatRoute } from '../pages/guards/PrivateRoute.jsx';
 import { PubliceRoute } from '../pages/guards/PublickRoute.jsx';
 import { CamerasPage } from '../pages/Cameras/CameraPage.jsx';
+import { PaymentPage } from 'pages/PaymentPage/PaymentPage.jsx';
 
 export const App = () => {
+
   return (
     <Router>
       <Routes>
@@ -55,6 +57,12 @@ export const App = () => {
               </PrivatRoute>
             }
           />
+
+          <Route
+            path="/diploma_front/payment/:project_id"
+            element={<PaymentPage />}
+          />
+
           <Route
             path="*"
             element={

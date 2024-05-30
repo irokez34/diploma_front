@@ -180,7 +180,9 @@ const TaskWindow = ({
               />
             </TaskDetailsLi>
             <TaskDetailsLi>
-              <TaskDetailsPriceStatus>{task && task.payment_status}</TaskDetailsPriceStatus>
+              <TaskDetailsPriceStatus>
+                {task && task.payment_status}
+              </TaskDetailsPriceStatus>
             </TaskDetailsLi>
           </TaskDetailsUl>
         </TaskDetailsListContainer>

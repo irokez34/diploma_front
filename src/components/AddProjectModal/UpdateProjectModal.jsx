@@ -56,7 +56,7 @@ export const UpdateProjectModal = ({ onClose, updateProject }) => {
               <InputField
                 type="text"
                 name="projectName"
-                placeholder="Project Name"
+                placeholder="Назва Проєкту"
                 value={data.projectName}
                 onChange={handleChange}
                 required
@@ -64,7 +64,7 @@ export const UpdateProjectModal = ({ onClose, updateProject }) => {
               <InputField
                 type="text"
                 name="projectDescription"
-                placeholder="Project Description"
+                placeholder="Опис Проєкту"
                 value={data.projectDescription}
                 onChange={handleChange}
                 required
@@ -73,7 +73,7 @@ export const UpdateProjectModal = ({ onClose, updateProject }) => {
                 onClick={e => {
                   e.preventDefault();
                   if (!data.projectDescription || !data.projectName) {
-                    alert('fill all fields');
+                    alert('Заповніть усі поля');
                     return;
                   }
                   updateProject({
@@ -82,7 +82,7 @@ export const UpdateProjectModal = ({ onClose, updateProject }) => {
                   });
                 }}
               >
-                {'SAVE'}
+                {'Зберегти'}
               </ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>

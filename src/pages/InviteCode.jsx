@@ -142,35 +142,35 @@ export const InviteCodePage = () => {
 
   return (
     <>
-      <SignOutBtn onClick={handleSignOut}>Sign Out</SignOutBtn>
+      <SignOutBtn onClick={handleSignOut}>Вийти</SignOutBtn>
       <Container>
-        <HelloH2>{'Welcome '}</HelloH2>
+        <HelloH2>{'Вітаю'}</HelloH2>
         <ChooseContainer>
           <ProjectsBtn onClick={OpenInviteCodeWindow}>
-            {'ENTER CODE'}
+            {'Ввести Код'}
           </ProjectsBtn>
-          <ProjectsBtn onClick={OpenProjectWindow}>{'My projects'}</ProjectsBtn>
+          <ProjectsBtn onClick={OpenProjectWindow}>{'Мої проєкти'}</ProjectsBtn>
         </ChooseContainer>
       </Container>
       {inviteCodeWindow && (
         <IntiveCodeContainer>
           <CloseWindowBtn onClick={OpenInviteCodeWindow}>X</CloseWindowBtn>
           <InviteCodeInput
-            placeholder="Invite Code"
+            placeholder="Код запрошення"
             value={code}
             onChange={e => setCode(e.target.value)}
           ></InviteCodeInput>
           <InviteCodeBtn
             onClick={e => {
-              if (!e.target.value) {
-                alert('Це поле не може бути пустим!');
-                return;
-              }
+              // if (!e.target.value) {
+              //   alert('Це поле не може бути пустим!');
+              //   return;
+              // }
               handleAcceptCode(code);
               projectId && navigate(`/diploma_front/project/${projectId}`);
             }}
           >
-            {'ENTER'}
+            {'Надіслати'}
           </InviteCodeBtn>
         </IntiveCodeContainer>
       )}
@@ -184,7 +184,7 @@ export const InviteCodePage = () => {
         <ProjectsContainer>
           <CloseWindowBtn onClick={OpenProjectWindow}>X</CloseWindowBtn>
           <AddProjectBtn onClick={openProjectModal}>
-            {'ADD PROJECT'}
+            {'Додати Проєкт'}
           </AddProjectBtn>
           {modal && (
             <AddProjectModal
