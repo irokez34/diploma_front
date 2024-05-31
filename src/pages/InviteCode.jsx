@@ -76,16 +76,14 @@ export const InviteCodePage = () => {
     const existingProject =
       allProjects && allProjects.find(project => project.name === name);
     if (existingProject) {
-      alert(
-        'A project with this name already exists. Please choose a different name.'
-      );
+      alert('Проєкт з такою назвою вже існує. Оберіть іншу назву');
     } else {
       const data = {
         name,
         description,
       };
       dispatch(createNewProject(data));
-      alert('Successfully created');
+      alert('Успішно Створенно');
       setModal(false);
       // window.location.reload();
     }
@@ -133,8 +131,11 @@ export const InviteCodePage = () => {
     navigate('/diploma_front/auth/login');
     window.location.reload();
   };
+
   const handleAcceptCode = inviteCode => {
     dispatch(accpetInviteCode(inviteCode));
+    projectId && navigate(`/diploma_front/project/${projectId}`);
+    // window.location.reload();
     // .then(() => {
     //   projectID && navigate(`/diploma_front/project/${projectID}`);
     // });
@@ -160,16 +161,7 @@ export const InviteCodePage = () => {
             value={code}
             onChange={e => setCode(e.target.value)}
           ></InviteCodeInput>
-          <InviteCodeBtn
-            onClick={e => {
-              // if (!e.target.value) {
-              //   alert('Це поле не може бути пустим!');
-              //   return;
-              // }
-              handleAcceptCode(code);
-              projectId && navigate(`/diploma_front/project/${projectId}`);
-            }}
-          >
+          <InviteCodeBtn onClick={() => handleAcceptCode(code)}>
             {'Надіслати'}
           </InviteCodeBtn>
         </IntiveCodeContainer>

@@ -39,6 +39,34 @@ const Info = styled.div`
   padding: 30px;
   position: relative;
 `;
+
+const NavButton = styled.button`
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px transparent;
+  background-color: #8f8f8f;
+  color: #ffffff;
+  overflow-wrap: break-word;
+  width: 200px;
+  cursor: pointer;
+  transition: background-color 0.5s ease, transform 0.3s ease,
+    box-shadow 0.5s ease;
+
+  &:hover {
+    background-color: #6f6f6f;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #cccccc;
+    box-shadow: none;
+  }
+`;
 const ButtonClose = styled.button`
   display: block;
   cursor: pointer;
@@ -89,4 +117,4 @@ const StyledSpan = styled.span`
   }
 `;
 
-export { Info, StyledSpan, Modal, Overlay, ButtonClose };
+export { Info, StyledSpan,NavButton, Modal, Overlay, ButtonClose };

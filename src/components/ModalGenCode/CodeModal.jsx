@@ -5,8 +5,8 @@ import {
   Modal,
   Overlay,
   StyledSpan,
+  NavButton,
 } from './CodeModal.styled';
-import { NavButton } from 'components/NavBarProjectPage/NavBarProjectPage.styled';
 
 export const CodeModal = ({ onClose, Click, getCode }) => {
   const [code, setCode] = useState('');
