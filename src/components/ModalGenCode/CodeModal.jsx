@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   ButtonClose,
   Info,
@@ -9,7 +9,6 @@ import {
 } from './CodeModal.styled';
 
 export const CodeModal = ({ onClose, Click, getCode }) => {
-
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
