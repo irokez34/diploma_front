@@ -66,6 +66,7 @@ const NavBar = ({
     setOpenModal(false);
     window.location.reload();
   };
+  console.log(paymentInfo);
 
   const handleInviteCode = e => {
     inviteCode(e.target.value);
@@ -85,6 +86,7 @@ const NavBar = ({
   //     setPayment(true);
   //   }
   // };
+  console.log(paymentInfo);
   return (
     <NavContainer>
       <Container>
@@ -111,15 +113,22 @@ const NavBar = ({
           }}
         >
           {/* payment */}
-          <NavButton
-            onClick={role === 'client' ? payPayment : createPayment}
-            disabled={
-              (allUserTask && allUserTask.length <= 0) ||
-              (paymentInfo && !paymentInfo.status !== 200)
-            }
-          >
-            {role === 'client' ? 'Сплатити' : 'Створити чек'}
-          </NavButton>
+          {role === 'owner' && (
+            <NavButton
+              onClick={createPayment}
+              disabled={allUserTask && allUserTask.length <= 0}
+            >
+              Створити чек
+            </NavButton>
+          )}
+          {role === 'client' && (
+            <NavButton
+              onClick={payPayment}
+              disabled={!paymentInfo}
+            >
+              Сплатити
+            </NavButton>
+          )}
           {/* {payment && <PaymentModal onClose={paymentModal} />} */}
 
           <InviteBtn
