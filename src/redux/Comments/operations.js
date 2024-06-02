@@ -18,7 +18,6 @@ export const getComments = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
@@ -47,7 +46,7 @@ export const createComments = createAsyncThunk(
 export const editComments = createAsyncThunk(
   'comments/edit',
   async ({ data, comment_id }, API) => {
-    console.log({data}, comment_id);
+    console.log({ data }, comment_id);
     try {
       const token = localStorage.getItem('token');
       const response = await axios.put(`/api/comments/${comment_id}`, data, {
@@ -84,4 +83,3 @@ export const deleteComments = createAsyncThunk(
     }
   }
 );
-  

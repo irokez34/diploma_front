@@ -16,12 +16,12 @@ import { updateProject } from '../../redux/Projects/operations';
 import { useNavigate } from 'react-router-dom';
 import { CodeModal } from 'components/ModalGenCode/CodeModal';
 
-
 const NavBar = ({
   project,
   inviteCode,
   code,
   role,
+  paymentInfo,
   payPayment,
   allUserTask,
   history,
@@ -113,9 +113,11 @@ const NavBar = ({
           {/* payment */}
           <NavButton
             onClick={role === 'client' ? payPayment : createPayment}
-            disabled={allUserTask && allUserTask.length <= 0}
+            disabled={
+              (allUserTask && allUserTask.length <= 0) ||
+              (paymentInfo && !paymentInfo.status !== 200)
+            }
           >
-            {/* paymentModal */}
             {role === 'client' ? 'Сплатити' : 'Створити чек'}
           </NavButton>
           {/* {payment && <PaymentModal onClose={paymentModal} />} */}

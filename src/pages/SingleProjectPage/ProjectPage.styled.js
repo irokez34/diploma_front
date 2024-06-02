@@ -21,6 +21,12 @@ const DeleteTaskBtn = styled.button`
     background-color: #ff1a1a;
     transform: scale(1.02);
   }
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+  }
 `;
 const ListItemBtn = styled.button`
   width: 90%;

@@ -68,7 +68,7 @@ export const ActivityChat = ({
     // console.log({ data, comment_id: commentId });
     editUserCom({ data, comment_id: commentId });
   };
-  console.log(userRole);
+  const userID = localStorage.getItem('userID');
 
   const comment =
     comments &&
@@ -84,7 +84,7 @@ export const ActivityChat = ({
             onClick={() => {
               handleCloseModal(com._id);
             }}
-            disabled={locked}
+            disabled={locked || userID !== com.user_id}
           >
             X
           </DeleteCommentBtn>
@@ -104,7 +104,7 @@ export const ActivityChat = ({
           onClick={() => {
             handleEditCommentModal(com._id, com.data);
           }}
-          disabled={locked}
+          disabled={locked || userID !== com.user_id}
         >
           Редагування
         </EditCommentBtn>

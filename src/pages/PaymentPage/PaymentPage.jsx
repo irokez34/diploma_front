@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { cancelPayment, getPayment, payPayment } from '../../redux/Projects/operations';
+import {
+  cancelPayment,
+  getPayment,
+  payPayment,
+} from '../../redux/Projects/operations';
 import { selectPaymentInfo } from '../../redux/Projects/selectors';
 import {
   CancelButton,
@@ -23,7 +27,8 @@ export const PaymentPage = () => {
   const { project_id } = useParams();
   const navigate = useNavigate();
   const paymentInfo = useSelector(selectPaymentInfo);
-
+  const dispatch = useDispatch();
+// console.log(paymentInfo);
   const converTime = date => {
     if (!date) {
       return 'No Time';
@@ -36,11 +41,9 @@ export const PaymentPage = () => {
     return formattedTime;
   };
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getPayment(project_id));
-  }, [dispatch, project_id]);
+  }, [dispatch, project_id, ]);
 
   const handleSubmit = e => {
     e.preventDefault();

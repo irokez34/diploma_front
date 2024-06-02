@@ -20,22 +20,23 @@ export const SignUpForm = ({ signUp }) => {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = 'Ім\'я обов\'язкове';
     }
     if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
+      newErrors.username = 'Ім\'я користувача обов\'язкове';
     }
     if (!formData.password.trim()) {
-      newErrors.password = 'Password is required';
+      newErrors.password = 'Пароль обов\'язковий';
     } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      newErrors.password = 'Пароль повинен містити принаймні 6 символів';
     }
     if (!formData.repeatPassword.trim()) {
-      newErrors.repeatPassword = 'Please repeat your password';
+      newErrors.repeatPassword = 'Повторіть пароль';
     } else if (formData.password !== formData.repeatPassword) {
-      newErrors.password = 'Passwords do not match';
-      newErrors.repeatPassword = 'Passwords do not match';
+      newErrors.password = 'Паролі не співпадають';
+      newErrors.repeatPassword = 'Паролі не співпадають';
     }
+    
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -106,7 +107,7 @@ export const SignUpForm = ({ signUp }) => {
           <p style={{ color: 'red' }}>{errors.repeatPassword}</p>
         )}
       </LabelForm>
-      <BtnForm type="submit">Реєстрації </BtnForm>
+      <BtnForm type="submit">Реєстрація </BtnForm>
       <BtnForm
         type="button"
         onClick={() => {

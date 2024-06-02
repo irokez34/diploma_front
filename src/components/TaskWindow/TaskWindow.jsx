@@ -74,7 +74,6 @@ const TaskWindow = ({
       e.target.value > 0 && loggedTime(data, task._id);
     }, 5000);
   };
-  console.log(task);
 
   return (
     <TaskContainerProject>
@@ -116,13 +115,13 @@ const TaskWindow = ({
           onClick={() => {
             closeTaskBtn(task._id);
           }}
-          disabled={role === 'worker' || (task && task.locked)}
+          disabled={role !== 'owner' || (task && task.locked)}
         >
           Закрити Завдання
         </TaskLockedBtn>
         <TaskDropDown>
           <SeletTask
-            disabled={task && task.locked}
+            disabled={(task && task.locked) || role !== 'owner'}
             onChange={handleStatus}
             value={task && task.status}
           >

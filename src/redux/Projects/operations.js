@@ -201,7 +201,7 @@ export const getPayment = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return error;
+      return error.response;
     }
   }
 );

@@ -9,6 +9,7 @@ import { PubliceRoute } from '../pages/guards/PublickRoute.jsx';
 import { CamerasPage } from '../pages/Cameras/CameraPage.jsx';
 import { PaymentPage } from 'pages/PaymentPage/PaymentPage.jsx';
 
+
 export const App = () => {
 
   return (

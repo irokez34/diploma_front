@@ -53,7 +53,7 @@ const DeleteCommentBtn = styled.button`
   right: 0.5%;
   &:disabled {
     background-color: grey;
-    cursor: not-allowed;
+
     opacity: 0.5;
   }
 `;
@@ -66,7 +66,7 @@ const EditCommentBtn = styled.button`
   max-width: 100px;
   &:disabled {
     background-color: grey;
-    cursor: not-allowed;
+
     opacity: 0.5;
   }
 `;

@@ -8,8 +8,12 @@ import {
   createPayment,
   getHistoryProject,
   getOneProject,
+  getPayment,
 } from '../../redux/Projects/operations';
-import { selectProject } from '../../redux/Projects/selectors.js';
+import {
+  selectPaymentInfo,
+  selectProject,
+} from '../../redux/Projects/selectors.js';
 import {
   closeTask,
   createNewTask,
@@ -59,6 +63,8 @@ export const ProjectPage = () => {
   const userComments = useSelector(selectComments);
   const [taskDeleteModal, setTaskDeleteModal] = useState();
   const [deleteTaskId, setDeleteTaskId] = useState(null);
+  const paymentInfo = useSelector(selectPaymentInfo);
+  
   // const projectPrice = useSelector(selectPrice);
   const navigate = useNavigate();
 
@@ -71,6 +77,7 @@ export const ProjectPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(getPayment(project_id));
     dispatch(getOneProject(project_id));
     dispatch(getAllTask(project_id));
   }, [dispatch, project_id]);
@@ -165,6 +172,7 @@ export const ProjectPage = () => {
           onClick={() => {
             handleCloseDeleteTask(taskMap._id);
           }}
+          disabled={userRole !== 'owner'}
         >
           X
         </DeleteTaskBtn>
@@ -223,6 +231,7 @@ export const ProjectPage = () => {
     <>
       <NavBar
         allUserTask={allTask}
+        paymentInfo={paymentInfo}
         payPayment={handlePayPayment}
         history={handleGetHistory}
         type={userType}
