@@ -11,12 +11,12 @@ export const ModalContext = createContext({
 
 export const ModalProvider = ({ children }) => {
   const [modalShowing, setModalShowing] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [overflow, setOverflow] = useState(null);
+  // const [modalContent, setModalContent] = useState(null);
+  // const [overflow, setOverflow] = useState(null);
 
   const openModal = (modalConfig, inOverflow) => {
-    setModalContent(modalConfig.props);
-    setOverflow(inOverflow);
+    // setModalContent(modalConfig.props);
+    // setOverflow(inOverflow);
     setModalShowing(true);
   };
 

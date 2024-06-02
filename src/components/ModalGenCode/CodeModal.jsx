@@ -9,7 +9,7 @@ import {
 } from './CodeModal.styled';
 
 export const CodeModal = ({ onClose, Click, getCode }) => {
-  const [code, setCode] = useState('');
+
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
@@ -29,7 +29,6 @@ export const CodeModal = ({ onClose, Click, getCode }) => {
           <ButtonClose
             onClick={() => {
               onClose();
-              setCode('');
             }}
           >
             <svg
