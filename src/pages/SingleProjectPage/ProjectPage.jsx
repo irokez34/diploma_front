@@ -60,11 +60,12 @@ export const ProjectPage = () => {
   const userTask = useSelector(selectTask);
   const [userRole, setUserRole] = useState('');
   const attacmID = useSelector(selectAttachID);
+  const [userAttacmId, setUserAttacmId] = useState(attacmID);
   const userComments = useSelector(selectComments);
   const [taskDeleteModal, setTaskDeleteModal] = useState();
   const [deleteTaskId, setDeleteTaskId] = useState(null);
   const paymentInfo = useSelector(selectPaymentInfo);
-  
+
   // const projectPrice = useSelector(selectPrice);
   const navigate = useNavigate();
 
@@ -80,7 +81,8 @@ export const ProjectPage = () => {
     dispatch(getPayment(project_id));
     dispatch(getOneProject(project_id));
     dispatch(getAllTask(project_id));
-  }, [dispatch, project_id]);
+    setUserAttacmId(attacmID);
+  }, [dispatch, project_id, attacmID]);
 
   useEffect(() => {
     if (project) {
@@ -146,9 +148,10 @@ export const ProjectPage = () => {
     const userData = {
       data,
       task_id: userTask._id,
-      attachments: attacmID ? [attacmID] : [],
+      attachments: userAttacmId && userAttacmId ? [userAttacmId] : [],
     };
     dispatch(createComments(userData));
+    setUserAttacmId(null);
   };
   const handleDeleteTask = () => {
     deleteTaskId && dispatch(deleteOneTask(deleteTaskId));

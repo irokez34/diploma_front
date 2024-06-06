@@ -22,6 +22,7 @@ import {
 import moment from 'moment-timezone';
 import { ActivityChat } from 'components/Activity/ActivityChat';
 import { NotificationMessage } from 'components/Notification-Msg/Notification';
+import { useRef } from 'react';
 
 const TaskWindow = ({
   task,
@@ -36,6 +37,7 @@ const TaskWindow = ({
   status,
   loggedTime,
 }) => {
+  const fileInputRef = useRef(null);
   // console.log(task);
   const handleFileChange = e => {
     if (!e.target.files[0]) {
@@ -43,6 +45,7 @@ const TaskWindow = ({
     }
     const file = e.target.files;
     const formdata = new FormData();
+
     file && formdata.append('file', file[0]);
     sendUserAttach(formdata);
   };
@@ -92,6 +95,7 @@ const TaskWindow = ({
             onChange={handleFileChange}
             accept=".jpg, .jpeg, .png"
             disabled={task && task.locked}
+            ref={fileInputRef}
           />
           <TaskDescription>{'Опис'}</TaskDescription>
           <TaskDescriptionSpan>{task && task.description}</TaskDescriptionSpan>
