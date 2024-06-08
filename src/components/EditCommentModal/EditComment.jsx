@@ -16,6 +16,7 @@ export const EditComment = ({ onClose, editComment, value, attachm }) => {
     data: `${value}`,
     attachments: attachm ? attachm : [],
   });
+
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
@@ -27,15 +28,6 @@ export const EditComment = ({ onClose, editComment, value, attachm }) => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
-
-  const handleFileChange = e => {
-    if (!e.target.files[0]) {
-      return;
-    }
-    const file = e.target.files;
-    const formdata = new FormData();
-    file && formdata.append('file', file[0]);
-  };
 
   return (
     <Overlay>
@@ -55,11 +47,6 @@ export const EditComment = ({ onClose, editComment, value, attachm }) => {
           <InfoContainer>
             <FormCreateProject>
               <InputField
-                type="file"
-                onChange={handleFileChange}
-                accept=".jpg, .jpeg, .png"
-              />
-              <InputField
                 as="textarea"
                 rows="5"
                 value={userData.data}
@@ -75,7 +62,7 @@ export const EditComment = ({ onClose, editComment, value, attachm }) => {
                   onClose();
                 }}
               >
-                {'SAVE'}
+                {'Зберегти'}
               </ProjectBtnSave>
             </FormCreateProject>
           </InfoContainer>

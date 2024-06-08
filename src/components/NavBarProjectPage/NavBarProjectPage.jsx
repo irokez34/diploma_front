@@ -66,7 +66,6 @@ const NavBar = ({
     setOpenModal(false);
     window.location.reload();
   };
-  console.log(paymentInfo);
 
   const handleInviteCode = e => {
     inviteCode(e.target.value);
@@ -86,7 +85,7 @@ const NavBar = ({
   //     setPayment(true);
   //   }
   // };
-  console.log(paymentInfo);
+
   return (
     <NavContainer>
       <Container>
@@ -122,10 +121,7 @@ const NavBar = ({
             </NavButton>
           )}
           {role === 'client' && (
-            <NavButton
-              onClick={payPayment}
-              disabled={!paymentInfo}
-            >
+            <NavButton onClick={payPayment} disabled={!paymentInfo}>
               Сплатити
             </NavButton>
           )}

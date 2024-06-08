@@ -32,6 +32,7 @@ export const ActivityChat = ({
   const [commentId, setCommentId] = useState(null);
   const [editComment, setEditComment] = useState(false);
   const [commentData, setCommentData] = useState('');
+  const [commnetAttacmh, setcommnetAttacmh] = useState(null);
   const closeModal = () => {
     if (imgModal) {
       setImgModal(false);
@@ -54,7 +55,7 @@ export const ActivityChat = ({
     setCommentId(comment_id);
   };
 
-  const handleEditCommentModal = (comment_id, comdata) => {
+  const handleEditCommentModal = (comment_id, comdata, comAttachm) => {
     if (editComment) {
       setEditComment(false);
     } else {
@@ -62,6 +63,7 @@ export const ActivityChat = ({
     }
     setCommentId(comment_id);
     setCommentData(comdata);
+    setcommnetAttacmh(comAttachm);
   };
 
   const handleEditComment = data => {
@@ -69,15 +71,28 @@ export const ActivityChat = ({
     editUserCom({ data, comment_id: commentId });
   };
   const userID = localStorage.getItem('userID');
-
+  //  justifyContent: 'space-between'
   const comment =
     comments &&
     comments.map(com => (
       <TaskChatItem key={com._id}>
-        <span style={{ display: 'flex', justifyContent: 'space-between' }}>
-          {com.username}
-          <span style={{ color: '#686868' }}>{time(com.last_updated)}</span>
-        </span>
+        <div>
+          <span style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {com.username}
+          </span>
+          <span
+            style={{
+              color: '#686868',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            {time(com.last_updated)}
+            <span>{com.edited && 'змінено'}</span>
+          </span>
+        </div>
+
         <CommentContainer>
           {com.data}
           <DeleteCommentBtn
@@ -88,6 +103,7 @@ export const ActivityChat = ({
           >
             X
           </DeleteCommentBtn>
+
           {com.attachments.length > 0 && (
             <MediaBtn
               onClick={() => {
@@ -102,7 +118,7 @@ export const ActivityChat = ({
         </CommentContainer>
         <EditCommentBtn
           onClick={() => {
-            handleEditCommentModal(com._id, com.data);
+            handleEditCommentModal(com._id, com.data, com.attachments);
           }}
           disabled={locked || userID !== com.user_id}
         >
@@ -110,6 +126,7 @@ export const ActivityChat = ({
         </EditCommentBtn>
       </TaskChatItem>
     ));
+  console.log(comments && comments.map(com => com));
 
   return (
     <TaskActivity>
@@ -141,6 +158,7 @@ export const ActivityChat = ({
           onClose={handleEditCommentModal}
           editComment={handleEditComment}
           value={commentData}
+          attachm={commnetAttacmh}
         />
       )}
     </TaskActivity>

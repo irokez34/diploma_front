@@ -23,7 +23,6 @@ const commentSlice = createSlice({
       })
       .addCase(API.createComments.pending, handlePending)
       .addCase(API.createComments.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.commentData.push(payload);
         // state.commentData =
         // state.commentData = [...state.commentData, payload.data];

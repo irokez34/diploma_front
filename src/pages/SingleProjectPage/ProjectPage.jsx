@@ -145,6 +145,11 @@ export const ProjectPage = () => {
     //   alert('fill comment field');
     //   return;
     // }
+    console.log(data);
+    if (!userAttacmId && !data) {
+      alert('Неможливо відправити пусте повідомлення');
+      return;
+    }
     const userData = {
       data,
       task_id: userTask._id,
