@@ -77,6 +77,7 @@ const projectSlice = createSlice({
       .addCase(API.createPayment.pending, (state, action) => {})
       .addCase(API.createPayment.fulfilled, (state, action) => {
         state.price = action.payload.price;
+        state.paymentInfo = true;
         // state.project = action.payload;
         // state.history = action.payload;
       })
@@ -86,6 +87,7 @@ const projectSlice = createSlice({
       .addCase(API.payPayment.pending, (state, action) => {})
       .addCase(API.payPayment.fulfilled, (state, action) => {
         state.paymentPage = true;
+        state.paymentInfo = false;
         // state.price = action.payload.price;
         // state.project = action.payload;
         // state.history = action.payload;

@@ -126,7 +126,6 @@ export const ActivityChat = ({
         </EditCommentBtn>
       </TaskChatItem>
     ));
-  console.log(comments && comments.map(com => com));
 
   return (
     <TaskActivity>

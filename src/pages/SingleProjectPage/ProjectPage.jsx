@@ -65,6 +65,7 @@ export const ProjectPage = () => {
   const [taskDeleteModal, setTaskDeleteModal] = useState();
   const [deleteTaskId, setDeleteTaskId] = useState(null);
   const paymentInfo = useSelector(selectPaymentInfo);
+  console.log(paymentInfo);
 
   // const projectPrice = useSelector(selectPrice);
   const navigate = useNavigate();
